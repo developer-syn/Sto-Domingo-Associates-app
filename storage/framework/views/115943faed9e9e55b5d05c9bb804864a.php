@@ -178,7 +178,7 @@
             <ul id="nav-list" class="nav-list">
                 <li class="nav-item">
                     <a href="/"
-                        class="nav-link <?php echo e(Route::currentRouteName() == '' ? 'active' : ''); ?>">Home</a>
+                        class="nav-link <?php echo e(Route::currentRouteName() == 'home' ? 'active' : ''); ?>">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="<?php echo e(route('display-news')); ?>"
@@ -187,7 +187,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?php echo e(route('organization')); ?>"
-                        class="nav-link <?php echo e(Route::currentRouteName() == 'org' ? 'active' : ''); ?>">Organization</a>
+                        class="nav-link <?php echo e(Route::currentRouteName() == 'organization' ? 'active' : ''); ?>">Organization</a>
                 </li>
                 <li class="nav-item">
                     <a href="<?php echo e(route('about')); ?>"

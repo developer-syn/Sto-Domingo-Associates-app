@@ -215,7 +215,7 @@
                         <a href="<?php echo e(route('display-news')); ?>" class="nav-link <?php echo e(Route::currentRouteName() == 'display-news' ? 'active' : ''); ?>">News & Media</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?php echo e(route('organization')); ?>" class="nav-link <?php echo e(Route::currentRouteName() == 'org' ? 'active' : ''); ?>">Organization</a>
+                        <a href="<?php echo e(route('organization')); ?>" class="nav-link <?php echo e(Route::currentRouteName() == 'organization' ? 'active' : ''); ?>">Organization</a>
                     </li>
                     <li class="nav-item">
                         <a href="<?php echo e(route('about')); ?>" class="nav-link <?php echo e(Route::currentRouteName() == 'about' ? 'active' : ''); ?>">About</a>

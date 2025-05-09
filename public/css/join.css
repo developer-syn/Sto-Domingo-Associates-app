@@ -1,0 +1,1346 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Hide horizontal scrollbar */
+html,
+body {
+    overflow-x: hidden;
+    /* Prevent horizontal overflow */
+    width: 100%;
+    height: auto;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-size: 100% 1390px;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px,
+        0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    /* background-image: radial-gradient(
+        70% 53% at 65% 13%,
+        #73f2ffff 0%,
+        #073aff00 46%
+      ),
+      radial-gradient(42% 53% at 19% -15%, #ffffffff 7%, #073aff00 100%),
+      radial-gradient(39% 37% at 79% 104%, #0037faf2 1%, #073aff00 100%),
+      radial-gradient(38% 56% at 19% 85%, #8a4fffff 40%, #073aff00 100%),
+      radial-gradient(38% 56% at 107% -10%, #8a4fffff 40%, #073aff00 100%),
+      radial-gradient(74% 86% at 67% 38%, #6dffaef5 0%, #073aff00 100%),
+      linear-gradient(180deg, #4eb5ffff 1%, #4c00fcff 100%);
+    font-family: "Inter", sans-serif; */
+}
+
+:root {
+    --primary-color: rgb(221, 42, 42);
+    --text-color: rgb(0, 0, 0);
+    --hover-bg-color: rgba(199, 25, 25, 0.968);
+    --hover-text-color: rgb(246, 246, 246);
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    /* Updated shadow to focus more on the bottom */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.322);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+#header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo-img {
+    width: 40px;
+    height: 40px;
+    background-image: url('images/SDALOGO.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    margin-right: 1rem;
+    border: 1px solid #ff0000;
+    /* Added a border to maintain the blue accent */
+}
+
+.company-name {
+    font-size: 2rem;
+    /* Increased size */
+    font-weight: bold;
+    /* Bold text */
+    color: #333;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    /* Increased padding for easier click */
+}
+
+.hamburger-icon {
+    display: block;
+    width: 35px;
+    /* Increased width */
+    height: 5px;
+    /* Increased height */
+    background-color: #333;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.hamburger-icon::before,
+.hamburger-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+.hamburger-icon::before {
+    transform: translateY(-10px);
+}
+
+.hamburger-icon::after {
+    transform: translateY(10px);
+}
+
+.nav-list {
+    display: flex;
+    list-style-type: none;
+}
+
+.nav-item {
+    position: relative;
+    /* Ensure the child pseudo-element is positioned relative to this parent */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    padding: 10px 15px;
+    /* Add some padding to make the clickable area larger */
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover .nav-link {
+    color: var(--primary-color);
+    /* Change the text color on hover */
+}
+
+.nav-item:hover::after {
+    width: 100%;
+    /* Full-width line appears on hover */
+}
+
+@media screen and (max-width: 768px) {
+    .nav-toggle-label {
+        display: block;
+        /* Show the toggle button on small screens */
+    }
+
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-toggle:checked~.nav-list {
+        display: flex;
+    }
+
+    .nav-item {
+        margin: 1rem;
+        /* Increase margin for better spacing */
+    }
+
+    .nav-toggle:checked~.nav-toggle-label .hamburger-icon {
+        background-color: transparent;
+    }
+
+    .nav-toggle:checked~.nav-toggle-label .hamburger-icon::before {
+        transform: rotate(45deg);
+    }
+
+    .nav-toggle:checked~.nav-toggle-label .hamburger-icon::after {
+        transform: rotate(-45deg);
+    }
+}
+
+/* MAIN CSS */
+.main {
+    height: 680px;
+    background-color: transparent;
+    margin: 100px 20px 20px 20px;
+}
+
+.section1 {
+    display: flex;
+    width: 100%;
+    height: auto;
+    max-height: 130%;
+    margin: auto;
+}
+
+.container1 {
+    border-radius: 30px;
+    width: 60%;
+    max-width: 800px;
+    /* Limit maximum width for larger screens */
+    background-color: rgb(243, 242, 242);
+    margin: 0 auto;
+    /* Center the container */
+    padding: 20px;
+    padding-top: 0;
+    text-align: center;
+    border-bottom: 0.3vh solid rgb(189, 35, 35);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.705);
+    box-sizing: border-box;
+    /* Ensure padding is included in width */
+    overflow: hidden;
+    /* Prevent overflow */
+}
+
+.part1 {
+    height: 100%;
+}
+
+.part1 h1 {
+    font-family: "Courier New";
+    font-size: 50px;
+    color: black;
+    letter-spacing: 5px;
+}
+
+.c1-p1 {
+    width: 100%;
+    /* Ensures it takes the full width */
+}
+
+label {
+    margin-right: 5px;
+}
+
+.needs-validation {
+    margin-top: 10px;
+}
+
+.c1 {
+    display: flex;
+    width: 70%;
+    margin: 0 auto;
+    justify-content: space-between;
+    /* Aligns items side by side with space between */
+    align-items: flex-start;
+    /* Align items at the start of the flex container */
+    gap: 20px;
+    /* Adds space between fields */
+}
+
+.c1-p1 {
+    width: 48%;
+    /* Adjusted to fit two fields side by side with some gap */
+    margin: 1% 0;
+    /* Removed side margin to avoid extra space */
+}
+
+.c1-p1 label {
+    display: block;
+    text-align: left;
+    /* Ensures label text aligns to the left */
+    margin-bottom: 5px;
+}
+
+.c1-p2 {
+    width: 100%;
+    margin: 1% 1%;
+}
+
+.c1-p2 label {
+    display: block;
+    text-align-last: left;
+    margin-bottom: 5px;
+}
+
+.c1-p3 {
+    width: 100%;
+    margin: 0.5% 0.5%;
+}
+
+.c1-p3 label {
+    display: block;
+    text-align-last: left;
+    font-size: medium;
+}
+
+#error {
+    color: red;
+    font-size: smaller;
+    text-align-last: left;
+    margin-top: 2px;
+}
+
+#error1 {
+    color: red;
+    font-size: small;
+    text-align-last: left;
+    margin-top: 2px;
+}
+
+.inquiry {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    font-size: medium;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.inquiry:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.job {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    font-size: medium;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.job:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.manager {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    font-size: medium;
+    width: 197%;
+    /* Adjusted width to 100% */
+    height: 50px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.manager:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.branch {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    font-size: medium;
+    width: 100%;
+    /* Matches the width of .branch-span */
+    height: 50px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.branch:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.hear {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    font-size: medium;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.hear:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.name {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    font-size: medium;
+    padding: 0 10px;
+    border-radius: 8px;
+}
+
+.name:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.email {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    font-size: medium;
+    padding: 0 10px;
+    border-radius: 8px;
+}
+
+.email:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.phone {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    font-size: medium;
+    padding: 0 10px;
+    border-radius: 8px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+
+}
+
+.phone:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.message {
+    border-style: solid;
+    border-color: black;
+    width: 100%;
+    max-width: 100%;
+    height: 100px;
+    max-height: 250px;
+    text-align: left;
+    font-size: large;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+
+.message:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    user-select: none;
+    text-align: justify;
+
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-style: solid;
+    /* Added solid border style */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    border-radius: 4px;
+    /* Optional: added border-radius for rounded corners */
+}
+
+
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.container input:checked~.checkmark {
+    background-color: #2196f3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 7px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.submit-button {
+    border-style: none;
+    font-size: 20px;
+    cursor: pointer;
+    width: 130px;
+    background-color: rgb(255, 0, 0);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    /* This makes the text white */
+}
+
+.submit-button:hover {
+    background-color: rgba(199, 25, 25, 0.968);
+}
+
+.notif {
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+.invalid-feedback,
+.empty-feedback {
+    display: none;
+}
+
+.was-validated :placeholder-shown:invalid~.empty-feedback {
+    display: block;
+}
+
+.was-validated :not(:placeholder-shown):invalid~.invalid-feedback {
+    display: block;
+}
+
+.is-invalid,
+.was-validated :invalid {
+    border-style: solid;
+    border-width: 2px;
+    border-color: red;
+}
+
+.container2 {
+    border-radius: 30px;
+    width: 40%;
+    background-color: rgb(243, 242, 242);
+    margin-right: 5px;
+    padding: 20px;
+    border-bottom: 0.3vh solid rgb(189, 35, 35);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.705);
+}
+
+.container2-section1 {
+    width: 100%;
+    height: 30%;
+    text-align: center;
+}
+
+.container2-section1 h1 {
+    font-family: "Courier New";
+    font-size: 40px;
+    color: black;
+    letter-spacing: 5px;
+    /* margin-bottom: 10px; */
+}
+
+#locate {
+    border-style: hidden;
+    width: 50%;
+    height: 40px;
+    text-align: center;
+    font-size: larger;
+    font-weight: bolder;
+    padding: 0 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+
+}
+
+.container2-section1 p {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.container2-section2 {
+    width: 100%;
+    height: 70%;
+}
+
+.map {
+    width: 100%;
+    height: 100%;
+    background-color: grey;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+#map-text {
+    display: block;
+    text-align-last: center;
+    line-height: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+#cebu {
+    width: 100%;
+    height: 100%;
+    display: none;
+    text-align-last: center;
+    line-height: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+    background-image: url(images/cebu-building.png);
+    background-size: cover;
+    background-position: top;
+    align-content: end;
+}
+
+#makati {
+    width: 100%;
+    height: 100%;
+    display: none;
+    text-align-last: center;
+    line-height: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+    background-image: url(images/makati-building.png);
+    background-size: cover;
+    background-position: top;
+    align-content: end;
+}
+
+#bohol {
+    width: 100%;
+    height: 100%;
+    display: none;
+    text-align-last: center;
+    line-height: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+    align-content: end;
+}
+
+#negros {
+    width: 100%;
+    height: 100%;
+    display: none;
+    text-align-last: center;
+    line-height: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+    background-image: url(images/negros-building.png);
+    background-size: cover;
+    background-position: top;
+    align-content: end;
+}
+
+#pampanga {
+    width: 100%;
+    height: 100%;
+    display: none;
+    text-align-last: center;
+    line-height: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+    background-image: url(images/pampanga-building.png);
+    background-size: cover;
+    background-position: top;
+    align-content: end;
+}
+
+#cebu div,
+#makati div,
+#bohol div,
+#negros div,
+#pampanga div {
+    width: 90%;
+    height: 10%;
+    margin: 1vh auto;
+    text-align-last: center;
+    line-height: 5vh;
+    font-size: large;
+    border-radius: 2vh;
+    background-color: rgba(255, 255, 255, 0.432);
+}
+
+/* FOOTER CSS */
+.linkedin-icon {
+    height: 7vh;
+    /* Adjusted to vh */
+    width: 7vh;
+    /* Adjusted to vh for consistent aspect ratio */
+    border-radius: 50%;
+    /* Ensures the image remains circular */
+    margin-top: 0.4vh;
+    /* Adjusted to vh */
+    border: 0.2vh solid rgb(226, 78, 78);
+    /* Adjusted to vh */
+}
+
+.facebook-icon {
+    height: 7vh;
+    /* Adjusted to vh */
+    width: 7vh;
+    /* Adjusted to vh for consistent aspect ratio */
+    border-radius: 50%;
+    /* Ensures the image remains circular */
+    margin-top: 0.4vh;
+    /* Adjusted to vh */
+    border: 0.2vh solid rgb(226, 78, 78);
+    /* Adjusted to vh */
+}
+
+.upper-part {
+    display: flex;
+    justify-content: space-between;
+    height: 35vh;
+}
+
+/* .footer-logo {
+    min-width: 35vh;
+    max-width: 35vh;
+    min-height: 35vh;
+    max-height: 35vh;
+    background-image: url(images/SDALOGO.png);
+    background-size: cover;
+  } */
+
+.footer-logo {
+    width: 35vh;
+    height: 35vh;
+    background-image: url('images/SDALOGO.png');
+    background-size: cover;
+    background-position: center;
+    /* transition: transform 0.3s ease-in-out; For hover effects */
+}
+
+.footer-logo:hover {
+    transform: scale(1.1);
+    /* Slightly enlarge on hover */
+}
+
+@media (max-width: 468px) {
+
+    /* Adjust size for mobile */
+    .footer-logo {
+        width: 20vh;
+        height: 20vh;
+    }
+}
+
+@media (max-width: 180px) {
+
+    /* For smaller mobile screens */
+    .footer-logo {
+        width: 15vh;
+        height: 15vh;
+    }
+}
+
+
+.footer-address {
+    /* min-width: 70vh; */
+    max-width: 70vh;
+    min-height: 20vh;
+    max-height: 20vh;
+    padding: 1vw;
+    font-size: 1vw;
+}
+
+.address {
+    font-size: 1.5vw;
+}
+
+.address:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+.footer-contact {
+    /* min-width: 70vh; */
+    max-width: 70vh;
+    min-height: 40vh;
+    max-height: 40vh;
+    padding: 1vw;
+    font-size: 1vw;
+}
+
+.address {
+    text-align: left;
+    padding-top: 0.2vw;
+    font-size: 1vw;
+}
+
+.contact {
+    text-align: justify;
+    padding-top: 0.2vw;
+    font-size: 1vw;
+    line-height: 2vw;
+}
+
+.lower-part {
+    margin-top: 1vw;
+    padding: 0px 1.5vw;
+    display: flex;
+    bottom: 0;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 12vh;
+    max-height: 12vh;
+    justify-content: space-between;
+}
+
+.footer-terms {
+    min-width: 60%;
+    max-width: 60%;
+    min-height: 12vh;
+    max-height: 12vh;
+    padding: 0px 1vw;
+    align-content: center;
+    font-size: 1vw;
+}
+
+.terms {
+    color: blue;
+}
+
+.terms:hover {
+    color: rgb(255, 0, 0);
+    text-decoration: underline;
+}
+
+.copyrights {
+    margin-left: 3vw;
+}
+
+.footer-logo-link {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 40%;
+    max-width: 40%;
+    min-height: 12vh;
+    max-height: 12vh;
+    padding: 1vw 1vw;
+}
+
+.fb-logo {
+    align-self: center;
+    padding: 0.1vw;
+    border-radius: 0.2vh;
+    min-width: 7vh;
+    max-width: 7vh;
+    min-height: 7vh;
+    max-height: 7vh;
+    margin-right: 1vw;
+}
+
+.fb-logo:hover {
+    border-radius: 1vw;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+}
+
+.linked-logo {
+    align-self: center;
+    padding: 0.1vw;
+    border-radius: 0.2vh;
+    min-width: 12vh;
+    max-width: 12vh;
+    min-height: 7vh;
+    max-height: 7vh;
+}
+
+.linked-logo:hover {
+    border-radius: 0.7vw;
+    background-color: rgb(255, 255, 255);
+    border: 0.2vh solid black;
+}
+
+/* scroll bar design*/
+
+::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+::-webkit-scrollbar-track {
+    background: #d1e5ff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#642bff, #ff22e6);
+    border-radius: 1vw;
+}
+
+.wrapper {
+    display: inline-flex;
+    list-style: none;
+}
+
+.wrapper .icon {
+    position: relative;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 15px;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.068, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    background: #ffffff;
+    color: #000000;
+    padding: 5px 8px;
+    border-radius: 5px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip::before {
+    position: absolute;
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: #ffffff;
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+    top: -45px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Container for the branch field */
+.h1-h1 {
+    width: 100%;
+    /* Full width container */
+    margin: 1% 0;
+    position: relative;
+    /* To allow absolute positioning of the label */
+}
+
+/* Style for the branch label */
+.branch-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+select.manager,
+.branch-span {
+    width: 100%;
+    /* Ensures select and span take up full width of their container */
+}
+
+/* Style for the branch span (this acts like an input field) */
+.branch-span {
+    display: block;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    font-size: medium;
+    width: 100%;
+    /* Adjusted to fit side by side with the manager field */
+    height: 50px;
+    text-align: center;
+    align-items: center;
+    /* Center text horizontally */
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    background-color: #f8f9fa;
+    line-height: 30px;
+    /* Centers text vertically */
+    overflow: hidden;
+    margin: auto;
+}
+
+/* Focus effect for span to mimic input fields */
+.branch:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+/* For responsive view and spacing consistency */
+@media screen and (max-width: 768px) {
+    .branch-span {
+        width: 100%;
+        /* Full width on smaller screens */
+        margin: auto;
+    }
+}
+
+.c1-p1.specify-manager input {
+    width: 100%;
+    border-color: black;
+    border-radius: 8px;
+    font-size: medium;
+    height: 50px;
+    border-width: 1px;
+}
+
+.c1-p1.specify-manager {
+    width: 100%;
+    margin: 1% 0;
+    display: none;
+    /* Hidden initially */
+}
+
+.c1-p1.specify-manager label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    display: block;
+}
+
+.specify-manager:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.branch {
+    border-style: solid;
+    /* Changed from hidden to solid */
+    border-color: black;
+    /* Added black border color */
+    border-width: 1px;
+    /* Added border width, adjust as needed */
+    font-size: medium;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.c1-p1.specify-branch input {
+    width: 100%;
+    border-color: black;
+    border-radius: 8px;
+    font-size: medium;
+    height: 50px;
+    border-width: 1px;
+}
+
+.c1-p1.specify-branch {
+    width: 100%;
+    margin: 1% 0;
+    display: none;
+    /* Hidden initially */
+}
+
+.c1-p1.specify-branch label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    display: block;
+}
+
+.specify-branch:focus {
+    outline: 3px solid rgba(0, 46, 252, 0.5);
+    outline-offset: 2px;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+.footer-logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.footer-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.footer-title::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.footer-content {
+    display: block;
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+    max-height: 1000px;
+}
+
+.footer-content a,
+.footer-content p {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+    color: #fff;
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.nav-item.active::after {
+    width: 100%;
+}
+
+.footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-right: 1rem;
+}
+
+.icon {
+    position: relative;
+    display: inline-block;
+}
+
+.icon img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.icon:hover img {
+    transform: scale(1.1);
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .footer-section {
+        flex-basis: 100%;
+        font-size: 2vw;
+    }
+
+    .address {
+        font-size: 2vw;
+    }
+
+    .footer-title::after {
+        display: block;
+    }
+
+    .footer-title.active::after {
+        content: '-';
+    }
+
+    .footer-content {
+        max-height: 0;
+    }
+
+    .footer-content.active {
+        max-height: 1000px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .copyright {
+        margin-bottom: 1rem;
+    }
+}

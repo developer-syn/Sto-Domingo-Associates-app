@@ -1,0 +1,26 @@
+.btn {
+    color: #000000;
+    background-color: #00ff22;
+    border-radius: .5vw;
+    padding: 5px 5px 5px 5px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #00460e;
+    color: white !important;
+}
+
+.btn1 {
+    background-color: #ff0019;
+    color: rgb(0, 0, 0);
+    border-radius: .5vw;
+    padding: 5px 5px 5px 5px;
+    font-weight: bold;
+
+}
+
+.btn1:hover {
+    background-color: #6e000b;
+    color: white;
+}

@@ -42,7 +42,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="<?php echo e(route('organization')); ?>"
-                            class="nav-link <?php echo e(Route::currentRouteName() == 'organization' ? 'active' : ''); ?>">Organization</a>
+                            class="nav-link <?php echo e(Route::currentRouteName() == 'org' ? 'active' : ''); ?>">Organization</a>
                     </li>
                     <li class="nav-item">
                         <a href="<?php echo e(route('about')); ?>"
