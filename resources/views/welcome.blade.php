@@ -161,17 +161,7 @@
         </div>
     </section>
 </main>
-<button id="chatButton" aria-label="Open chat">💬</button>
-<div id="chatbox">
-    <div id="chatHeader">
-        <span>Chat Assistant</span>
-    </div>
-    <div id="chatContainer"></div>
-    <div id="inputArea">
-        <input type="text" id="messageInput" placeholder="Type a message..." aria-label="Type a message" />
-        <button id="sendMessageButton" aria-label="Send message">📤</button>
-    </div>
-</div>
+
 <header class="header">
     <div id="header-content">
         <div class="logo">
