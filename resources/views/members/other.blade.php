@@ -28,7 +28,7 @@
         </div>
 
     <!-- Branch Manager Modal Trigger -->
-    <div class="container mx-auto px-4 py-8">
+
     <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
         style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 450px; overflow: auto;">
         <div
@@ -137,8 +137,10 @@
                     </div>
                 </div>
             @endforeach
+            </div>
         </div>
-    </div>
+        </div>
+        </div>
 
     <!-- Add New Branch Manager Modal -->
     <div class="modal fade" id="branchManagerModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="branchManagerModalLabel">
