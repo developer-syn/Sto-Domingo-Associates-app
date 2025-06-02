@@ -206,82 +206,82 @@
     </div>
 </div>
 
-        <!-- Edit Branch Manager Modal -->
-        <div class="modal fade" id="editBranchManagerModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="editBranchManagerModalLabel">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content shadow-lg">
-            <div class="modal-header" style="background-color: #ec2a2a; color: #fff;">
-                <h5 class="modal-title w-100 text-center" id="editBranchManagerModalLabel">Edit Branch Manager</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Edit Branch Manager Modal -->
+    <div class="modal fade" id="editBranchManagerModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="editBranchManagerModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content shadow-lg">
+                <div class="modal-header" style="background-color: #ec2a2a; color: #fff;">
+                    <h5 class="modal-title w-100 text-center" id="editBranchManagerModalLabel">Edit Branch Manager</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editManagerForm" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="edit_manager_name" class="form-label">Name</label>
+                                <input type="text" id="edit_manager_name" name="name" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_manager_position" class="form-label">Position</label>
+                                <input type="text" id="edit_manager_position" name="position" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label for="edit_manager_educbackground" class="form-label">Education Background</label>
+                            <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
+                                <div class="btn-group me-2" role="group">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                                </div>
+                                <div class="btn-group me-2" role="group">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
+                                </div>
+                            </div>
+                            <div id="edit_manager_educbackground" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
+                            <input type="hidden" name="educbackground" id="hidden_edit_educbackground">
+                        </div>
+                        <div class="mt-3">
+                            <label for="edit_manager_keyskills" class="form-label">Key Skills</label>
+                            <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
+                                <div class="btn-group me-2" role="group">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                                </div>
+                                <div class="btn-group me-2" role="group">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
+                                </div>
+                            </div>
+                            <div id="edit_manager_keyskills" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
+                            <input type="hidden" name="keyskills" id="hidden_edit_keyskills">
+                        </div>
+                        <div class="row g-3 mt-3">
+                            <div class="col-md-6">
+                                <label for="edit_manager_link" class="form-label">Link</label>
+                                <input type="url" id="edit_manager_link" name="link" placeholder="https://example.com" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_profile_picture" class="form-label">Profile Picture</label>
+                                <input type="file" id="edit_profile_picture" name="profile_picture" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" class="btn btn-danger px-4">Update</button>
+                    </div>
+                </form>
             </div>
-            <form id="editManagerForm" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="edit_manager_name" class="form-label">Name</label>
-                            <input type="text" id="edit_manager_name" name="name" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="edit_manager_position" class="form-label">Position</label>
-                            <input type="text" id="edit_manager_position" name="position" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <label for="edit_manager_educbackground" class="form-label">Education Background</label>
-                        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
-                            <div class="btn-group me-2" role="group">
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-                            </div>
-                            <div class="btn-group me-2" role="group">
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
-                            </div>
-                        </div>
-                        <div id="edit_manager_educbackground" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
-                        <input type="hidden" name="educbackground" id="hidden_edit_educbackground">
-                    </div>
-                    <div class="mt-3">
-                        <label for="edit_manager_keyskills" class="form-label">Key Skills</label>
-                        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
-                            <div class="btn-group me-2" role="group">
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-                            </div>
-                            <div class="btn-group me-2" role="group">
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
-                            </div>
-                        </div>
-                        <div id="edit_manager_keyskills" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
-                        <input type="hidden" name="keyskills" id="hidden_edit_keyskills">
-                    </div>
-                    <div class="row g-3 mt-3">
-                        <div class="col-md-6">
-                            <label for="edit_manager_link" class="form-label">Link</label>
-                            <input type="url" id="edit_manager_link" name="link" placeholder="https://example.com" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="edit_profile_picture" class="form-label">Profile Picture</label>
-                            <input type="file" id="edit_profile_picture" name="profile_picture" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" class="btn btn-danger px-4">Update</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
         <br>
 
@@ -738,7 +738,51 @@
             // JavaScr
         </script>
 
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+            const editManagerButtons = document.querySelectorAll('.editManagerBtn');
+            const editBranchManagerModalElement = document.getElementById('editBranchManagerModal');
+            let editBranchManagerModal;
+            if (editBranchManagerModalElement) {
+                editBranchManagerModal = new bootstrap.Modal(editBranchManagerModalElement);
+            }
 
+            editManagerButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Get data from button attributes
+                    const managerId = this.dataset.managerId;
+                    const managerName = this.dataset.managerName;
+                    const managerPosition = this.dataset.managerPosition;
+                    const managerEducBackground = this.dataset.managerEducbackground;
+                    const managerKeySkills = this.dataset.managerKeyskills;
+                    const managerLink = this.dataset.managerLink;
+
+                    // Set form action
+                    const editManagerForm = document.getElementById('editManagerForm');
+                    editManagerForm.action = `/members/updateManagerProfile/${managerId}`;
+
+                    // Fill form fields
+                    document.getElementById('edit_manager_name').value = managerName || '';
+                    document.getElementById('edit_manager_position').value = managerPosition || '';
+                    document.getElementById('edit_manager_educbackground').innerHTML = managerEducBackground || '';
+                    document.getElementById('edit_manager_keyskills').innerHTML = managerKeySkills || '';
+                    document.getElementById('edit_manager_link').value = managerLink || '';
+
+                    // Show modal using Bootstrap's API
+                    if (editBranchManagerModal) {
+                        editBranchManagerModal.show();
+                    }
+                });
+            });
+
+            // Optional: Reset form when modal is closed
+            if (editBranchManagerModalElement) {
+                editBranchManagerModalElement.addEventListener('hidden.bs.modal', function () {
+                    document.getElementById('editManagerForm').reset();
+                });
+            }
+        });
+</script>
         <!-- JavaScript for Modal Behavior -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -789,46 +833,7 @@
                 // --------------------------
                 // Branch Manager Edit Modal Logic
                 // --------------------------
-// Replace or add this script at the bottom of your file
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize edit manager button functionality
-    const editManagerButtons = document.querySelectorAll('.editManagerBtn');
-    const editBranchManagerModalElement = document.getElementById('editBranchManagerModal');
-    const editBranchManagerModal = new bootstrap.Modal(editBranchManagerModalElement);
-
-    editManagerButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Get data from button attributes
-            const managerId = this.dataset.managerId;
-            const managerName = this.dataset.managerName;
-            const managerPosition = this.dataset.managerPosition;
-            const managerEducBackground = this.dataset.managerEducbackground;
-            const managerKeySkills = this.dataset.managerKeyskills;
-            const managerLink = this.dataset.managerLink;
-
-            // Set form action
-            const editManagerForm = document.getElementById('editManagerForm');
-            editManagerForm.action = `/members/updateManagerProfile/${managerId}`;
-
-            // Fill form fields
-            document.getElementById('edit_manager_name').value = managerName || '';
-            document.getElementById('edit_manager_position').value = managerPosition || '';
-            document.getElementById('edit_manager_educbackground').innerHTML = managerEducBackground || '';
-            document.getElementById('edit_manager_keyskills').innerHTML = managerKeySkills || '';
-            document.getElementById('edit_manager_link').value = managerLink || '';
-
-            // Show modal
-            editBranchManagerModal.show();
-        });
-    });
-
-    // Handle modal close
-    editBranchManagerModalElement.addEventListener('hidden.bs.modal', function () {
-        // Reset form when modal is closed
-        document.getElementById('editManagerForm').reset();
-    });
-});
-
+//
                 // --------------------------
                 // Employee Edit Modal Logic
                 // --------------------------
