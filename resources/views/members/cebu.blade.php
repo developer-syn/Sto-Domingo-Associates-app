@@ -465,75 +465,81 @@
         </div>
     </div>
 </div>
-        <!-- Edit Employee Modal -->
-        <div id="editEmployeeModal"
-            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-            <div class="bg-white p-6 rounded-lg shadow-md relative" style="width: 450px;">
-                <button id="closeEditEmployeeModal"
-                    class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-                <h3 class="text-xl font-semibold mb-4" style="text-align:center;">Edit Employee</h3>
-                <form id="editEmployeeForm" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-4">
-                        <label for="edit_name" class="block text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" id="edit_name" name="name"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="edit_position" class="block text-sm font-medium text-gray-700">Position</label>
-                        <input type="text" id="edit_position" name="position"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required>
-                    </div>
-
-                    <!-- Education Background -->
-                    <div class="mb-4">
-                        <label for="edit_educationback" class="block text-sm font-medium text-gray-700">Education
-                            Background</label>
-                        <textarea id="edit_educationback" name="educationback"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2
-                          focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            rows="4"></textarea>
-                    </div>
-
-                    <!-- Key Skills -->
-                    <div class="mb-4">
-                        <label for="edit_keyskills" class="block text-sm font-medium text-gray-700">Key Skills</label>
-                        <textarea id="edit_keyskills" name="keyskills"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2
-                          focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            rows="4"></textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="edit_link" class="block text-sm font-medium text-gray-700">Link</label>
-                        <input type="url" id="edit_link" name="link"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div class="mb-4">
-                        <label for="edit_profile_picture" class="block text-sm font-medium text-gray-700">Profile
-                            Picture</label>
-                        <input type="file" id="edit_profile_picture" name="profile_picture_employee"
-                            class="mt-1 block w-full text-sm text-gray-500
-                           file:mr-4 file:py-2 file:px-4
-                           file:rounded-md file:border-0
-                           file:text-sm file:font-semibold
-                           file:bg-blue-50 file:text-blue-700
-                           hover:file:bg-blue-100">
-                    </div>
-                    <div class="flex items-center justify-center">
-                        <button type="submit"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            style="background-color: rgb(233, 25, 35)">
-                            Update
-                        </button>
-                    </div>
-                </form>
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="editEmployeeModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header" style="background-color: #ec2a2a; color: #fff;">
+                <h5 class="modal-title w-100 text-center" id="editEmployeeModalLabel">Edit Employee</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form id="editEmployeeForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="edit_name" class="form-label">Name</label>
+                            <input type="text" id="edit_name" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_position" class="form-label">Position</label>
+                            <input type="text" id="edit_position" name="position" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="edit_educationback" class="form-label">Education Background</label>
+                        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                            </div>
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
+                            </div>
+                        </div>
+                        <div id="edit_educationback" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
+                        <input type="hidden" name="educationback" id="hidden_edit_educationback">
+                    </div>
+                    <div class="mt-3">
+                        <label for="edit_keyskills" class="form-label">Key Skills</label>
+                        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                            </div>
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
+                            </div>
+                        </div>
+                        <div id="edit_keyskills" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
+                        <input type="hidden" name="keyskills" id="hidden_edit_keyskills">
+                    </div>
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="edit_link" class="form-label">Link</label>
+                            <input type="url" id="edit_link" name="link" placeholder="https://example.com" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_profile_picture" class="form-label">Profile Picture</label>
+                            <input type="file" id="edit_profile_picture" name="profile_picture_employee" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-danger px-4">Update</button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
 
         <!-- Font Awesome & Bootstrap -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -737,7 +743,50 @@
 
             // JavaScr
         </script>
+<script>
+    // Add this to your existing script section
 
+document.addEventListener('DOMContentLoaded', function() {
+    const editEmployeeModal = new bootstrap.Modal(document.getElementById('editEmployeeModal'));
+
+    // Use event delegation for dynamically added edit buttons
+    document.addEventListener('click', function(event) {
+        if (event.target.closest('.editEmployeeBtn')) {
+            const button = event.target.closest('.editEmployeeBtn');
+            const employeeId = button.dataset.employeeId;
+            const employeeName = button.dataset.employeeName;
+            const employeePosition = button.dataset.employeePosition;
+            const employeeEducBackground = button.dataset.employeeEducbackground;
+            const employeeKeySkills = button.dataset.employeeKeyskills;
+            const employeeLink = button.dataset.employeeLink;
+
+            // Set form action and values
+            const editForm = document.getElementById('editEmployeeForm');
+            editForm.action = `/employees/update/${employeeId}`;
+
+            document.getElementById('edit_name').value = employeeName || '';
+            document.getElementById('edit_position').value = employeePosition || '';
+            document.getElementById('edit_educationback').innerHTML = employeeEducBackground || '';
+            document.getElementById('edit_keyskills').innerHTML = employeeKeySkills || '';
+            document.getElementById('edit_link').value = employeeLink || '';
+
+            // Show modal
+            editEmployeeModal.show();
+        }
+    });
+
+    // Add form submission handler for employee edit form
+    const editEmployeeForm = document.getElementById('editEmployeeForm');
+    if (editEmployeeForm) {
+        editEmployeeForm.addEventListener('submit', function(e) {
+            document.getElementById('hidden_edit_educationback').value =
+                document.getElementById('edit_educationback').innerHTML.trim();
+            document.getElementById('hidden_edit_keyskills').value =
+                document.getElementById('edit_keyskills').innerHTML.trim();
+        });
+    }
+});
+    </script>
 <script>
       document.addEventListener('DOMContentLoaded', function() {
             const editManagerButtons = document.querySelectorAll('.editManagerBtn');
