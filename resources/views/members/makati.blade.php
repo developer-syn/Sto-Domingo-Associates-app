@@ -619,13 +619,31 @@
 
             // Bootstrap modal logic for Add Branch Manager
             document.addEventListener('DOMContentLoaded', function () {
-                const openBranchManagerModalBtn = document.getElementById('openBranchManagerModal');
-                const branchManagerModal = new bootstrap.Modal(document.getElementById('branchManagerModal'));
-                if (openBranchManagerModalBtn) {
-                    openBranchManagerModalBtn.addEventListener('click', () => branchManagerModal.show());
-                }
-            });
+    // Initialize the Bootstrap modal
+    const branchManagerModal = new bootstrap.Modal(document.getElementById('branchManagerModal'), {
+        keyboard: true,
+        backdrop: 'static'
+    });
 
+    // Handle open button click
+    const openBranchManagerModalBtn = document.getElementById('openBranchManagerModal');
+    if (openBranchManagerModalBtn) {
+        openBranchManagerModalBtn.addEventListener('click', () => branchManagerModal.show());
+    }
+
+    // Handle close button click
+    const closeBranchManagerModalBtn = document.getElementById('closeBranchManagerModal');
+    if (closeBranchManagerModalBtn) {
+        closeBranchManagerModalBtn.addEventListener('click', () => branchManagerModal.hide());
+    }
+
+    // Handle escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && branchManagerModal._isShown) {
+            branchManagerModal.hide();
+        }
+    });
+});
             // Edit Branch Manager Modal logic
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize the Bootstrap modal
