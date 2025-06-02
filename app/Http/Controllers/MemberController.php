@@ -190,9 +190,15 @@ class MemberController extends Controller
     // Show employees for a manager
     public function showEmployees($managerId)
     {
-        $employeeProfiles = EmployeeProfile::where('manager_profile_id', $managerId)->get();
+        try {
+            $employeeProfiles = EmployeeProfile::where('manager_profile_id', $managerId)
+                ->select('id', 'name', 'position', 'profile_picture', 'link', 'educationback', 'keyskills')
+                ->get();
 
-        return response()->json($employeeProfiles);
+            return response()->json($employeeProfiles, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error fetching employees'], 500);
+        }
     }
 
     // Fetch branch data

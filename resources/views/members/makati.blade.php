@@ -3,19 +3,31 @@
 @section('title', 'Members')
 
 @section('content')
-    <h1 class="text-center fw-bold mb-4" style="font-size: 30px; font-family: 'Palatino', serif;">
-        Makati Branch Managers
-    </h1>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1
+            style="text-align: center; font-weight: bolder; font-size: 30px; font-family: 'Palatino', serif; flex: 1;">
+            Makati Branch Managers
+        </h1>
 
-    <!-- Branch Manager Modal Trigger & Manager Cards -->
-        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
-            style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575);">
-            <div class="flex items-center justify-between">
-                <button id="openBranchManagerModal" class="text-blue-500 hover:text-blue-600 focus:outline-none">
-                    <i class="fas fa-plus fa-xl"></i>
-                </button>
-            </div>
-    <div class="container mx-auto px-4 py-8">
+    </div>
+
+        <div class="d-flex align-items-center mb-4" style="gap: 10px; margin-left: 20px;">
+            <button id="openBranchManagerModal" class="btn btn-primary d-flex align-items-center"
+                style="background-color: #2196f3; border: none;">
+                <i class="fas fa-plus me-2"></i> Add Manager
+            </button>
+            <button type="button"
+                id="openEmployeeModal"
+                class="btn btn-primary d-flex align-items-center"
+                style="background-color: #2196f3; border: none;"
+                data-bs-toggle="modal"
+                data-bs-target="#employeeModal">
+                <i class="fas fa-plus me-2"></i> Add Employee
+            </button>
+        </div>
+
+
+
         <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
         style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 460px; overflow: auto;">
             <div
@@ -124,8 +136,8 @@
                 @endforeach
             </div>
         </div>
-        </div>
-        </div>
+
+
 
         <!-- Add New Branch Manager Modal -->
         <div id="branchManagerModal" class="modal fade" tabindex="-1" aria-labelledby="branchManagerModalLabel" aria-hidden="true">
@@ -280,24 +292,17 @@
                 </div>
             </div>
         </div>
+        </div>
+        </div>
 
         <br>
 
-        <h1 class="text-center fw-bold mb-4" style="font-size: 30px; font-family: 'Palatino', serif;">
-            Employees
-        </h1>
-
+        
+                <h1 class="text-center fw-bold mb-4" style="font-size: 30px; font-family: 'Palatino', serif;">
+                    Employees
+                </h1>
         <!-- Employee Modal Trigger -->
-        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
-            style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575);">
-            <div class="flex items-center justify-between mb-4">
-                <button type="button"
-                    class="text-blue-500 hover:text-blue-600 focus:outline-none"
-                    data-bs-toggle="modal"
-                    data-bs-target="#employeeModal">
-                    <i class="fas fa-plus fa-xl"></i>
-                </button>
-            </div>
+
             <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
                 style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 460px; overflow: auto;">
 
@@ -309,7 +314,7 @@
                     </div>
                 @endforeach
             </div>
-        </div>
+
 
         <br>
         <h1 class="text-center fw-bold mb-4" style="font-size: 30px; font-family: 'Palatino', serif;">

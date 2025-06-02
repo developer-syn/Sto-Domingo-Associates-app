@@ -156,7 +156,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/employees', [EmployeeController::class, 'destroy'])->name('employees.destroy');
 });
 
-Route::get('/managers/{managerId}/employees', [MemberController::class, 'showEmployees'])->name('managers.showEmployees');
+Route::get('/managers/{managerId}/employees', [MemberController::class, 'showEmployees'])->name('managers.showEmployees')->middleware('auth');
 // Member Management Routes
 Route::middleware('auth')->group(function () {
     Route::get('/cebu', [MemberController::class, 'showBranch'])->name('cebu.index')->defaults('branch', 'cebu');

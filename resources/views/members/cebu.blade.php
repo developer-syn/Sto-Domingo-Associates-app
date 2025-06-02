@@ -4,22 +4,31 @@
 
 @section('content')
 
-    <h1
-        style="text-align: center; font-weight: bolder; margin-bottom: 20px; font-size: 30px; font-family: 'Palatino', serif;">
-        Cebu Branch Managers
-    </h1>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1
+            style="text-align: center; font-weight: bolder; font-size: 30px; font-family: 'Palatino', serif; flex: 1;">
+            Cebu Branch Managers
+        </h1>
 
-    <!-- Branch Manager Modal Trigger -->
-            <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
-            style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575);">
-            <div class="flex items-center justify-between">
-                <button id="openBranchManagerModal" class="text-blue-500 hover:text-blue-600 focus:outline-none">
-                    <i class="fas fa-plus fa-xl"></i>
-                </button>
-            </div>
-    <div class="container mx-auto px-4 py-8">
+    </div>
+
+        <div class="d-flex align-items-center mb-4" style="gap: 10px; margin-left: 20px;">
+            <button id="openBranchManagerModal" class="btn btn-primary d-flex align-items-center"
+                style="background-color: #2196f3; border: none;">
+                <i class="fas fa-plus me-2"></i> Add Manager
+            </button>
+            <button type="button"
+                id="openEmployeeModal"
+                class="btn btn-primary d-flex align-items-center"
+                style="background-color: #2196f3; border: none;"
+                data-bs-toggle="modal"
+                data-bs-target="#employeeModal">
+                <i class="fas fa-plus me-2"></i> Add Employee
+            </button>
+        </div>
+
         <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
-            style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 460px; overflow: auto;">
+        style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 450px; overflow: auto;">
             <div
                 class="flex flex-nowrap gap-6 py-4"
                 style="min-width: 100%; scrollbar-width: thin; scrollbar-color: #ec2a2a #f5f5f5;"
@@ -291,16 +300,6 @@
         </h1>
 
 <!-- Employee Display Section -->
-<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
-    style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575);">
-    <div class="flex items-center justify-between mb-4">
-        <button type="button"
-            class="text-blue-500 hover:text-blue-600 focus:outline-none"
-            data-bs-toggle="modal"
-            data-bs-target="#employeeModal">
-            <i class="fas fa-plus fa-xl"></i>
-        </button>
-    </div>
     <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
         style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 450px; overflow: auto;">
 
@@ -311,7 +310,7 @@
             </div>
         @endforeach
     </div>
-</div>
+
         <br>
         <h1
             style="text-align: center; font-weight: bolder; margin-bottom: 30px; font-size: 30px; font-family: 'Palatino', serif;">
