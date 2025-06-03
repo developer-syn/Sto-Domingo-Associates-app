@@ -254,24 +254,20 @@
 
         <br>
 
-        <h1
-            style="text-align: center; font-weight: bolder; margin-bottom: 20px; font-size: 30px; font-family: 'Palatino', serif;">
+        <h1 class="text-center fw-bold mb-4" style="font-size: 30px; font-family: 'Palatino', serif;">
             Employees
         </h1>
 
-        <!-- Employee Modal Trigger -->
-
-            <!-- Replace the existing employees container with this one -->
-            <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
-                style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 460px; overflow: auto;">
-                @foreach ($managerProfiles as $manager)
-                    <div id="employees-{{ $manager->id }}" class="flex flex-nowrap gap-6 hidden py-4"
-                        style="min-width: 100%; scrollbar-width: thin; scrollbar-color: #ec2a2a #f5f5f5;">
-                        <!-- Employee cards will be loaded here via JavaScript -->
-                    </div>
-                @endforeach
-
+        <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
+            style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 460px; overflow: auto;">
+            @foreach ($managerProfiles as $manager)
+                <div id="employees-{{ $manager->id }}" class="flex flex-nowrap gap-6 hidden py-4"
+                    style="min-width: 100%; scrollbar-width: thin; scrollbar-color: #ec2a2a #f5f5f5;">
+                    <!-- Employee cards will be loaded here via JavaScript -->
+                </div>
+            @endforeach
         </div>
+
         <br>
         <h1
             style="text-align: center; font-weight: bolder; margin-bottom: 30px; font-size: 30px; font-family: 'Palatino', serif;">
@@ -811,9 +807,14 @@
             // Function to Show Employees
             // --------------------------
             function showEmployees(managerId) {
+                // Hide all employee containers first
                 const allEmployeeContainers = document.querySelectorAll('[id^="employees-"]');
-                allEmployeeContainers.forEach(container => container.classList.add('hidden'));
+                allEmployeeContainers.forEach(container => {
+                    container.classList.add('hidden');
+                    container.innerHTML = ''; // Clear previous content
+                });
 
+                // Show and populate the selected manager's employee container
                 fetch(`/managers/${managerId}/employees`)
                     .then(response => response.json())
                     .then(data => {
@@ -879,7 +880,9 @@
                     })
                     .catch(error => {
                         console.error('Error fetching employees:', error);
-                        alert('There was an error fetching the employees. Please try again later.');
+                        const employeeContainer = document.getElementById(`employees-${managerId}`);
+                        employeeContainer.innerHTML = '<p class="text-center w-full">Error loading employees. Please try again later.</p>';
+                        employeeContainer.classList.remove('hidden');
                     });
             }
 

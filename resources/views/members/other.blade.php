@@ -298,17 +298,15 @@
 
     <br>
 
-    <h1
-        style="text-align: center; font-weight: bolder; margin-bottom: 20px; font-size: 30px; font-family: 'Palatino', serif;">
+    <h1 class="text-center fw-bold mb-4" style="font-size: 30px; font-family: 'Palatino', serif;">
         Employees
     </h1>
 
-    <!-- Employee Modal Trigger -->
     <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
-        style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 450px; overflow: auto;">
+        style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 460px; overflow: auto;">
 
         @foreach ($managerProfiles as $manager)
-            <div id="employees-{{ $manager->id }}" class="flex flex-nowrap gap-6 hidden py-2"
+            <div id="employees-{{ $manager->id }}" class="flex flex-nowrap gap-6 hidden py-4"
                 style="min-width: 100%; scrollbar-width: thin; scrollbar-color: #ec2a2a #f5f5f5;">
                 <!-- Employee cards will be loaded here via JavaScript -->
             </div>
@@ -635,6 +633,7 @@
         .employee-card {
             flex-shrink: 0;
             width: 350px;
+            height: 430px;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575);
             border-radius: 0.5rem;
@@ -642,57 +641,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 430px;
-        }
-
-        .employee-image-container {
-            width: 250px;
-            height: 250px;
-            margin: 0 auto;
-            background-color: #f5f5f5;
-            border-radius: 0.375rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .employee-image {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 0.375rem;
-        }
-
-        .employee-actions {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .employee-button {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .employee-button:hover {
-            transform: translateY(-1px);
-        }
-
-        .employee-button.edit {
-            background-color: #2196f3;
-        }
-
-        .employee-button.delete {
-            background-color: #ec2a2a;
         }
     </style>
 
@@ -880,9 +828,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 // Replace the showEmployees function with this updated version
 function showEmployees(managerId) {
+    // Hide all employee containers first
     const allEmployeeContainers = document.querySelectorAll('[id^="employees-"]');
-    allEmployeeContainers.forEach(container => container.classList.add('hidden'));
+    allEmployeeContainers.forEach(container => {
+        container.classList.add('hidden');
+        container.innerHTML = ''; // Clear previous content
+    });
 
+    // Show and populate the selected manager's employee container
     fetch(`/managers/${managerId}/employees`)
         .then(response => response.json())
         .then(data => {
@@ -894,60 +847,65 @@ function showEmployees(managerId) {
             } else {
                 data.forEach(employee => {
                     employeeHTML += `
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
-                            style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
-                            <div>
-                                <a href="${employee.link}" target="_blank" class="employee-name"
-                                    style="color: black; text-decoration: underline;">
-                                    <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
-                                </a>
-                                <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
-                                ${employee.profile_picture
-                                    ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
-                                        class="object-cover rounded-md mb-2 mx-auto"
-                                        style="width: 250px; height: 250px;">`
-                                    : `<div class="flex items-center justify-center mb-2 mx-auto"
-                                        style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
-                                        <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
-                                       </div>`}
-                            </div>
-                            <div class="flex justify-center gap-2">
-                                <button type="button"
-                                    class="editEmployeeBtn text-white px-3 py-1 w-32"
-                                    style="background-color: #2196f3; border-radius: 5px; border: none; display: flex; align-items: center; justify-content: center; gap: 4px;"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editEmployeeModal"
-                                    data-employee-id="${employee.id}"
-                                    data-employee-name="${employee.name}"
-                                    data-employee-position="${employee.position}"
-                                    data-employee-educbackground="${employee.educationback}"
-                                    data-employee-keyskills="${employee.keyskills}"
-                                    data-employee-link="${employee.link}">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <form action="/employees/${employee.id}" method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete this employee?');"
-                                    style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="text-white px-3 py-1 w-32"
-                                        style="background-color: #ec2a2a; border-radius: 5px; border: none; display: flex; align-items: center; justify-content: center; gap: 4px;">
-                                        <i class="fas fa-trash"></i> Delete
+                        <div class="flex-shrink-0" style="width: 350px;">
+                            <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
+                                style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
+                                <div>
+                                    <a href="${employee.link || '#'}" target="_blank" class="employee-name"
+                                        style="color: black; text-decoration: underline;">
+                                        <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
+                                    </a>
+                                    <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position || ''}</h4>
+                                    ${employee.profile_picture
+                                        ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
+                                            class="object-cover rounded-md mb-2 mx-auto"
+                                            style="width: 250px; height: 250px;">`
+                                        : `<div class="flex items-center justify-center mb-2 mx-auto"
+                                            style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
+                                            <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
+                                           </div>`
+                                    }
+                                </div>
+                                <div class="flex justify-center space-x-3">
+                                    <button type="button"
+                                        class="editEmployeeBtn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center"
+                                        style="background-color: #2196f3;"
+                                        data-employee-id="${employee.id}"
+                                        data-employee-name="${employee.name}"
+                                        data-employee-position="${employee.position || ''}"
+                                        data-employee-educbackground="${employee.educationback || ''}"
+                                        data-employee-keyskills="${employee.keyskills || ''}"
+                                        data-employee-link="${employee.link || ''}">
+                                        <i class="fas fa-edit mr-2"></i>
+                                        Edit
                                     </button>
-                                </form>
+                                    <form action="/employees/${employee.id}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this employee?');"
+                                        class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200 flex items-center"
+                                            style="background-color: #ec2a2a;">
+                                            <i class="fas fa-trash mr-2"></i>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </div>`;
+                        </div>`;
                 });
             }
             employeeContainer.innerHTML = employeeHTML;
             employeeContainer.classList.remove('hidden');
         })
         .catch(error => {
-            console.error('Error fetching employees:', error);
-            alert('There was an error fetching the employees. Please try again later.');
+            console.error('Error:', error);
+            const employeeContainer = document.getElementById(`employees-${managerId}`);
+            if (employeeContainer) {
+                employeeContainer.innerHTML = '<p class="text-center text-red-500 w-full">Error loading employees. Please try again later.</p>';
+                employeeContainer.classList.remove('hidden');
+            }
         });
 }
 </script>

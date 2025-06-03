@@ -12,6 +12,7 @@
     <link rel="icon" href="{{ asset('css/images/SDALOGO.png') }}" type="image/png" />
     <link rel="stylesheet" href="{{ asset('css/org.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 
@@ -468,3 +469,134 @@
 </body>
 
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const branchButtons = document.querySelectorAll('.branch-btn');
+
+        branchButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const branch = button.getAttribute('data-branch');
+
+                // Clear previous content and update intro text
+                document.getElementById('managers-list').innerHTML = '';
+                document.getElementById('employees-list').innerHTML = '';
+                document.getElementById('section2-intro').textContent =
+                    `${branch.charAt(0).toUpperCase() + branch.slice(1)} Branch`;
+
+                // Fetch branch data
+                fetch(`/org/${branch}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const managersContainer = document.getElementById('managers-list');
+                        managersContainer.innerHTML = '';
+
+                        if (!data.managers || data.managers.length === 0) {
+                            managersContainer.innerHTML = '<p class="text-center w-full">No managers found for this branch.</p>';
+                            return;
+                        }
+
+                        data.managers.forEach(manager => {
+                            const profileImage = manager.profile_picture
+                                ? `<img src="/storage/${manager.profile_picture}"
+                                    alt="${manager.name}"
+                                    class="object-cover rounded-md mb-2 mx-auto"
+                                    style="width: 250px; height: 250px;">`
+                                : `<div class="flex items-center justify-center mb-2 mx-auto"
+                                    style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
+                                    <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
+                                   </div>`;
+
+                            const managerCard = document.createElement('div');
+                            managerCard.className = 'flex-shrink-0 mx-2';
+                            managerCard.style.width = '350px';
+                            managerCard.innerHTML = `
+                                <div class="bg-white p-4 rounded-lg shadow-md flex flex-col justify-between text-center"
+                                    style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; margin-top: 1rem;">
+                                    <div>
+                                        <a href="${manager.link || '#'}" target="_blank" class="manager-name" style="color: black; text-decoration: underline;">
+                                            <h3 class="text-lg font-semibold mt-2 underline">${manager.name}</h3>
+                                        </a>
+                                        <h4 class="text-md font-medium text-gray-600 mt-0.1">${manager.position}</h4>
+                                        ${profileImage}
+                                    </div>
+                                    <button class="display-employees-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
+                                        style="background-color: #2196f3; margin-top: 10px;"
+                                        data-manager-id="${manager.id}"
+                                        onclick="showEmployees(${manager.id})">
+                                        <i class="fas fa-users"></i> Display Employees
+                                    </button>
+                                </div>`;
+
+                            managersContainer.appendChild(managerCard);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('managers-list').innerHTML =
+                            '<p class="text-center w-full">Error loading managers. Please try again.</p>';
+                    });
+            });
+        });
+    });
+
+    function showEmployees(managerId) {
+        const employeesContainer = document.getElementById('employees-list');
+        employeesContainer.innerHTML = '<p class="text-center w-full">Loading employees...</p>';
+
+        fetch(`/managers/${managerId}/employees`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                employeesContainer.innerHTML = '';
+
+                if (!data || data.length === 0) {
+                    employeesContainer.innerHTML = '<p class="text-center w-full">No employees found for this manager.</p>';
+                    return;
+                }
+
+                data.forEach(employee => {
+                    const profileImage = employee.profile_picture
+                        ? `<img src="/storage/${employee.profile_picture}"
+                            alt="${employee.name}"
+                            class="object-cover rounded-md mb-2 mx-auto"
+                            style="width: 250px; height: 250px;">`
+                        : `<div class="flex items-center justify-center mb-2 mx-auto"
+                            style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
+                            <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
+                           </div>`;
+
+                    const employeeCard = document.createElement('div');
+                    employeeCard.className = 'flex-shrink-0 mx-2';
+                    employeeCard.style.width = '350px';
+                    employeeCard.innerHTML = `
+                        <div class="bg-white p-4 rounded-lg shadow-md flex flex-col justify-between text-center"
+                            style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%;">
+                            <div>
+                                <a href="${employee.link || '#'}" target="_blank" class="employee-name" style="color: black; text-decoration: underline;">
+                                    <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
+                                </a>
+                                <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
+                                ${profileImage}
+                            </div>
+                        </div>`;
+
+                    employeesContainer.appendChild(employeeCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                employeesContainer.innerHTML =
+                    '<p class="text-center w-full">Error loading employees. Please try again.</p>';
+            });
+    }
+</script>

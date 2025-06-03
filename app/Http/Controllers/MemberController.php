@@ -111,35 +111,60 @@ class MemberController extends Controller
 
 
     // Update a Branch Manager
-    public function updateManagerProfile(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'link' => 'nullable|url',
-            'specify_branch' => 'nullable|max:255',
-            'educbackground' => 'nullable|string|max:1255', // Ensure educbackground is validated
-            'keyskills' => 'nullable|string|max:1255', // Ensure keyskills is validated
-        ]);
 
-        $manager = ManagerProfile::findOrFail($id);
-        $manager->name = $validatedData['name'];
-        $manager->position = $validatedData['position'];
-        $manager->educbackground = $validatedData['educbackground']; // Update the educbackground
-        $manager->keyskills = $validatedData['keyskills']; // Update the keyskills
-        $manager->link = $validatedData['link'] ?? null;
-        $manager->specify_branch = $validatedData['specify_branch'] ?? null;
+public function updateManagerProfile(Request $request, $id)
+{
+    $manager = ManagerProfile::findOrFail($id);
 
-        if ($request->hasFile('profile_picture')) {
-            $path = $request->file('profile_picture')->store('manager_profiles', 'public');
-            $manager->profile_picture = $path;
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'position' => 'required|string|max:255',
+        'educbackground' => 'nullable|string',
+        'keyskills' => 'nullable|string',
+        'link' => 'nullable|url',
+        'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+    ]);
+
+    if ($request->hasFile('profile_picture')) {
+        // Delete old image if exists
+        if ($manager->profile_picture) {
+            Storage::delete('public/' . $manager->profile_picture);
         }
-
-        $manager->save();
-        return redirect()->back()->with('success', 'Branch Manager updated successfully!');
+        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+        $validated['profile_picture'] = $path;
     }
 
+    $manager->update($validated);
+
+    return redirect()->back()->with('success', 'Manager profile updated successfully');
+}
+
+public function updateEmployeeProfile(Request $request, $id)
+{
+    $employee = EmployeeProfile::findOrFail($id);
+
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'position' => 'required|string|max:255',
+        'educationback' => 'nullable|string',
+        'keyskills' => 'nullable|string',
+        'link' => 'nullable|url',
+        'profile_picture_employee' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+    ]);
+
+    if ($request->hasFile('profile_picture_employee')) {
+        // Delete old image if exists
+        if ($employee->profile_picture) {
+            Storage::delete('public/' . $employee->profile_picture);
+        }
+        $path = $request->file('profile_picture_employee')->store('employee_pictures', 'public');
+        $validated['profile_picture'] = $path;
+    }
+
+    $employee->update($validated);
+
+    return redirect()->back()->with('success', 'Employee profile updated successfully');
+}
 
 
     // Delete a Branch Manager
@@ -151,32 +176,7 @@ class MemberController extends Controller
     }
 
     // Update an Employee
-    public function updateEmployeeProfile(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'profile_picture_employee' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'position' => 'required|string|max:255', // Ensure position is validated
-            'educationback' => 'nullable|string', // Ensure educbackground is validated
-            'keyskills' => 'nullable|string', // Ensure keyskills is validated
-            'link' => 'nullable|url', // Validate link as a URL
-        ]);
-
-        $employee = EmployeeProfile::findOrFail($id);
-        $employee->name = $validatedData['name'];
-        $employee->position = $validatedData['position']; // Update the position
-        $employee->educationback = $validatedData['educationback']; // Update the educbackground
-        $employee->keyskills = $validatedData['keyskills']; // Update the keyskills
-        $employee->link = $validatedData['link'] ?? null; // Update the link
-
-        if ($request->hasFile('profile_picture_employee')) {
-            $path = $request->file('profile_picture_employee')->store('employee_profiles', 'public');
-            $employee->profile_picture = $path;
-        }
-
-        $employee->save();
-        return redirect()->back()->with('success', 'Employee updated successfully!');
-    }
+    /* Duplicate updateEmployeeProfile method removed to resolve duplicate symbol error. */
 
     // Delete an Employee
     public function deleteEmployeeProfile($id)
@@ -204,13 +204,13 @@ class MemberController extends Controller
     // Fetch branch data
     public function fetchBranchData($branch)
     {
-        $managers = ManagerProfile::where('branch', $branch)->get();
-        $employees = EmployeeProfile::where('branch', $branch)->get();
+        $managers = ManagerProfile::where('branch', $branch)
+            ->select('id', 'name', 'position', 'profile_picture', 'branch', 'specify_branch', 'link', 'educbackground', 'keyskills')
+            ->get();
 
         return response()->json([
             'branch' => $branch,
-            'managers' => $managers,
-            'employees' => $employees
+            'managers' => $managers
         ]);
     }
 

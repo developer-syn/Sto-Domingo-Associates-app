@@ -36,9 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/chat', [AdminChatController::class, 'sendMessage']);
 });
 
-// Routes for the main chatbot functionality
-Route::get('/chatbot', [ChatBotController::class, 'index']);
-Route::post('/chatbot/message', [ChatBotController::class, 'sendMessage']);
+
 
 
 Route::get('/', function () {
@@ -51,7 +49,7 @@ Route::get('/organization', function () {
     return view('organization');
 })->name('organization');
 
-Route::get('/organization/{branch}', [MemberController::class, 'fetchBranchData']);
+Route::get('/org/{branch}', [MemberController::class, 'fetchBranchData']);
 Route::get('/organization/{branch}/employees', [MemberController::class, 'fetchBranchData']);
 
 Route::get('/about', function () {
@@ -125,7 +123,7 @@ Route::middleware(['auth'])->group(function () {
     // For Managers
     Route::put('/members/updateManagerProfile/{id}', [MemberController::class, 'updateManagerProfile'])->name('members.updateManagerProfile');
     // For Employees
-    Route::put('/members/updateEmployeeProfile/{id}', [MemberController::class, 'updateEmployeeProfile'])->name('members.updateEmployeeProfile');
+    Route::put('/employees/update/{id}', [MemberController::class, 'updateEmployeeProfile'])->name('employees.update');
 });
 
 Route::delete('/contact_us/{contactUs}', [ContactUsController::class, 'destroy'])->name('contact_us.destroy');

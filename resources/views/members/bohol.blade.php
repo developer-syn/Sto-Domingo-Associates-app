@@ -4,28 +4,28 @@
 
 @section('content')
 
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1
-            style="text-align: center; font-weight: bolder; font-size: 30px; font-family: 'Palatino', serif; flex: 1;">
-            Bohol Branch Managers
-        </h1>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h1
+    style="text-align: center; font-weight: bolder; font-size: 30px; font-family: 'Palatino', serif; flex: 1;">
+    Bohol Branch Managers
+</h1>
 
-    </div>
+</div>
+<div class="d-flex align-items-center mb-4" style="gap: 10px; margin-left: 20px;">
+    <button id="openBranchManagerModal" class="btn btn-primary d-flex align-items-center"
+        style="background-color: #2196f3; border: none;">
+        <i class="fas fa-plus me-2"></i> Add Manager
+    </button>
+    <button type="button"
+        id="openEmployeeModal"
+        class="btn btn-primary d-flex align-items-center"
+        style="background-color: #2196f3; border: none;"
+        data-bs-toggle="modal"
+        data-bs-target="#employeeModal">
+        <i class="fas fa-plus me-2"></i> Add Employee
+    </button>
+</div>
 
-        <div class="d-flex align-items-center mb-4" style="gap: 10px; margin-left: 20px;">
-            <button id="openBranchManagerModal" class="btn btn-primary d-flex align-items-center"
-                style="background-color: #2196f3; border: none;">
-                <i class="fas fa-plus me-2"></i> Add Manager
-            </button>
-            <button type="button"
-                id="openEmployeeModal"
-                class="btn btn-primary d-flex align-items-center"
-                style="background-color: #2196f3; border: none;"
-                data-bs-toggle="modal"
-                data-bs-target="#employeeModal">
-                <i class="fas fa-plus me-2"></i> Add Employee
-            </button>
-        </div>
 
     <!-- Branch Manager Modal Trigger -->
         <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
@@ -551,89 +551,6 @@
 
 
 
-        <br>
-
-        <h1
-            style="text-align: center; font-weight: bolder; margin-bottom: 20px; font-size: 30px; font-family: 'Palatino', serif;">
-            Employees
-        </h1>
-
-        <!-- Employee Modal Trigger -->
-
-    <div class="max-w-full mx-auto bg-white p-6 rounded-lg shadow-md"
-        style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 450px; overflow: auto;">
-
-        @foreach ($managerProfiles as $manager)
-            <div id="employees-{{ $manager->id }}" class="flex flex-nowrap gap-6 hidden py-2"
-                style="min-width: 100%; scrollbar-width: thin; scrollbar-color: #ec2a2a #f5f5f5;">
-                <!-- Employee cards will be loaded here via JavaScript -->
-            </div>
-        @endforeach
-    </div>
-
-        <br>
-        <h1
-            style="text-align: center; font-weight: bolder; margin-bottom: 30px; font-size: 30px; font-family: 'Palatino', serif;">
-            New Recruits
-        </h1>
-
-        <!-- Employee Modal Trigger -->
-        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
-            style="box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575);">
-
-            @if ($managerProfiles->isEmpty())
-                <p>No manager profiles found.</p>
-            @else
-            @endif
-
-            @if ($acceptedRecruits->isEmpty())
-                <p>No accepted recruits found.</p>
-            @else
-                <div style="overflow-x: auto;">
-                    <table id="contact_us" class="table table-striped table-bordered"
-                        style="width:100%;-webkit-scrollbar: 0.8pv; text-align:center;">
-                        <thead>
-                            <tr>
-                                {{-- <th>Manager Name</th> --}}
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Type of Job</th>
-                                <th>Type of Inquiry</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($acceptedRecruits as $recruit)
-                                <tr>
-                                    {{-- <td>{{ $recruit->manager_name }}</td> --}}
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $recruit->name }}</td>
-                                    <td>{{ $recruit->email }}</td>
-                                    <td>{{ $recruit->phone }}</td>
-                                    <td>{{ $recruit->job_type }}</td>
-                                    <td>{{ $recruit->inquiry_type }}</td>
-                                    <td>
-                                        <form action="{{ route('members.destroyNewRecruit', ['id' => $recruit->id]) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Are you sure you want to delete this recruit?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="text-red-500 hover:text-red-700 mx-2 transition-colors duration-300 ease-in-out"
-                                                style="background-color: rgb(236, 42, 42); color: white; border-radius: 5px; padding: 8px 16px; border: none;">
-                                                <i class="fas fa-trash"></i> Delete
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
-        </div>
         <!-- Employee Modal -->
         <div class="modal fade" id="employeeModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="employeeModalLabel">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -1096,102 +1013,85 @@ document.addEventListener('DOMContentLoaded', function() {
             // Function to Show Employees
             // --------------------------
             function showEmployees(managerId) {
+                // Hide all employee containers first
                 const allEmployeeContainers = document.querySelectorAll('[id^="employees-"]');
-                allEmployeeContainers.forEach(container => container.classList.add('hidden'));
-
-                fetch(`/managers/${managerId}/employees`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const employeeContainer = document.getElementById(`employees-${managerId}`);
-                    if (!employeeContainer) {
-                        console.error('Employee container not found');
-                        return;
-                    }
-
-                    if (!Array.isArray(data)) {
-                        console.error('Data is not an array:', data);
-                        return;
-                    }
-
-                    let employeeHTML = '';
-
-                    if (data.length === 0) {
-                        employeeHTML = '<p class="text-center w-full">No employees found for this manager.</p>';
-                    } else {
-                        data.forEach(employee => {
-                            employeeHTML += `
-                                <div class="flex-shrink-0" style="width: 350px;">
-                                    <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
-                                        style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
-                                        <div>
-                                            <a href="${employee.link || '#'}" target="_blank" class="employee-name"
-                                                style="color: black; text-decoration: underline;">
-                                                <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
-                                            </a>
-                                            <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position || ''}</h4>
-                                            ${employee.profile_picture
-                                                ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
-                                                    class="object-cover rounded-md mb-2 mx-auto"
-                                                    style="width: 250px; height: 250px;">`
-                                                : `<div class="flex items-center justify-center mb-2 mx-auto"
-                                                    style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
-                                                    <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
-                                                   </div>`
-                                            }
-                                        </div>
-                                        <div class="flex justify-center space-x-3">
-                                            <button type="button"
-                                                class="editEmployeeBtn text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center"
-                                                style="background-color: #2196f3;"
-                                                data-employee-id="${employee.id}"
-                                                data-employee-name="${employee.name}"
-                                                data-employee-position="${employee.position || ''}"
-                                                data-employee-educbackground="${employee.educationback || ''}"
-                                                data-employee-keyskills="${employee.keyskills || ''}"
-                                                data-employee-link="${employee.link || ''}">
-                                                <i class="fas fa-edit mr-2"></i>
-                                                Edit
-                                            </button>
-                                            <form action="/employees/${employee.id}" method="POST"
-                                                onsubmit="return confirm('Are you sure you want to delete this employee?');"
-                                                class="inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200 flex items-center"
-                                                    style="background-color: #ec2a2a;">
-                                                    <i class="fas fa-trash mr-2"></i>
-                                                    Delete
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>`;
-                        });
-                    }
-                    employeeContainer.innerHTML = employeeHTML;
-                    employeeContainer.classList.remove('hidden');
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    const errorMessage = 'There was an error fetching the employees. Please try again later.';
-                    const employeeContainer = document.getElementById(`employees-${managerId}`);
-                    if (employeeContainer) {
-                        employeeContainer.innerHTML = `<p class="text-center text-red-500 w-full">${errorMessage}</p>`;
-                        employeeContainer.classList.remove('hidden');
-                    }
+                allEmployeeContainers.forEach(container => {
+                    container.classList.add('hidden');
+                    container.innerHTML = ''; // Clear previous content
                 });
+
+                // Show and populate the selected manager's employee container
+                fetch(`/managers/${managerId}/employees`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const employeeContainer = document.getElementById(`employees-${managerId}`);
+                        let employeeHTML = '';
+
+                        if (data.length === 0) {
+                            employeeHTML = '<p class="text-center w-full">No employees found for this manager.</p>';
+                        } else {
+                            data.forEach(employee => {
+                                employeeHTML += `
+                                    <div class="flex-shrink-0" style="width: 350px;">
+                                        <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
+                                            style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
+                                            <div>
+                                                <a href="${employee.link || '#'}" target="_blank" class="employee-name"
+                                                    style="color: black; text-decoration: underline;">
+                                                    <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
+                                                </a>
+                                                <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position || ''}</h4>
+                                                ${employee.profile_picture
+                                                    ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
+                                                        class="object-cover rounded-md mb-2 mx-auto"
+                                                        style="width: 250px; height: 250px;">`
+                                                    : `<div class="flex items-center justify-center mb-2 mx-auto"
+                                                        style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
+                                                        <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
+                                                       </div>`
+                                                }
+                                            </div>
+                                            <div class="flex justify-center space-x-3">
+                                                <button type="button"
+                                                    class="editEmployeeBtn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center"
+                                                    style="background-color: #2196f3;"
+                                                    data-employee-id="${employee.id}"
+                                                    data-employee-name="${employee.name}"
+                                                    data-employee-position="${employee.position || ''}"
+                                                    data-employee-educbackground="${employee.educationback || ''}"
+                                                    data-employee-keyskills="${employee.keyskills || ''}"
+                                                    data-employee-link="${employee.link || ''}">
+                                                    <i class="fas fa-edit mr-2"></i>
+                                                    Edit
+                                                </button>
+                                                <form action="/employees/${employee.id}" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this employee?');"
+                                                    class="inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200 flex items-center"
+                                                        style="background-color: #ec2a2a;">
+                                                        <i class="fas fa-trash mr-2"></i>
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                            });
+                        }
+                        employeeContainer.innerHTML = employeeHTML;
+                        employeeContainer.classList.remove('hidden');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        const employeeContainer = document.getElementById(`employees-${managerId}`);
+                        if (employeeContainer) {
+                            employeeContainer.innerHTML = '<p class="text-center text-red-500 w-full">Error loading employees. Please try again later.</p>';
+                            employeeContainer.classList.remove('hidden');
+                        }
+                    });
             }
 
             document.addEventListener('DOMContentLoaded', function() {

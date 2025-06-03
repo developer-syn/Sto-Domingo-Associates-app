@@ -297,7 +297,7 @@
 
         <br>
 
-        
+
                 <h1 class="text-center fw-bold mb-4" style="font-size: 30px; font-family: 'Palatino', serif;">
                     Employees
                 </h1>
@@ -711,13 +711,24 @@
 
             // Show Employees function (AJAX)
             function showEmployees(managerId) {
+                // Hide all employee containers first
                 const allEmployeeContainers = document.querySelectorAll('[id^="employees-"]');
-                allEmployeeContainers.forEach(container => container.classList.add('hidden'));
+                allEmployeeContainers.forEach(container => {
+                    container.classList.add('hidden');
+                    container.innerHTML = ''; // Clear previous content
+                });
 
+                // Show the selected manager's employee container
+                const selectedContainer = document.getElementById(`employees-${managerId}`);
+                if (!selectedContainer) return;
+
+                // Remove hidden class from the selected container
+                selectedContainer.classList.remove('hidden');
+
+                // Fetch and display employees for the selected manager
                 fetch(`/managers/${managerId}/employees`)
                     .then(response => response.json())
                     .then(data => {
-                        const employeeContainer = document.getElementById(`employees-${managerId}`);
                         let employeeHTML = '';
 
                         if (data.length === 0) {
@@ -725,61 +736,60 @@
                         } else {
                             data.forEach(employee => {
                                 employeeHTML += `
-                                <div class="flex-shrink-0" style="width: 350px;">
-                                    <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
-                                        style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
-                                        <div>
-                                            <a href="${employee.link}" target="_blank" class="employee-name"
-                                                style="color: black; text-decoration: underline;">
-                                                <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
-                                            </a>
-                                            <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
-                                            ${employee.profile_picture
-                                                ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
-                                                    class="object-cover rounded-md mb-2 mx-auto"
-                                                    style="width: 250px; height: 250px;">`
-                                                : `<div class="flex items-center justify-center mb-2 mx-auto"
-                                                    style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
-                                                    <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
-                                                   </div>`
-                                            }
-                                        </div>
-                                        <div class="flex justify-center space-x-3">
-                                            <button type="button"
-                                                class="editEmployeeBtn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center"
-                                                style="background-color: #2196f3;"
-                                                data-employee-id="${employee.id}"
-                                                data-employee-name="${employee.name}"
-                                                data-employee-position="${employee.position}"
-                                                data-employee-educbackground="${employee.educationback}"
-                                                data-employee-keyskills="${employee.keyskills}"
-                                                data-employee-link="${employee.link}">
-                                                <i class="fas fa-edit mr-2"></i>
-                                                Edit
-                                            </button>
-                                            <form action="/employees/${employee.id}" method="POST"
-                                                onsubmit="return confirm('Are you sure you want to delete this employee?');"
-                                                class="inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200 flex items-center"
-                                                    style="background-color: #ec2a2a;">
-                                                    <i class="fas fa-trash mr-2"></i>
-                                                    Delete
+                                    <div class="flex-shrink-0" style="width: 350px;">
+                                        <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
+                                            style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
+                                            <div>
+                                                <a href="${employee.link}" target="_blank" class="employee-name"
+                                                    style="color: black; text-decoration: underline;">
+                                                    <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
+                                                </a>
+                                                <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
+                                                ${employee.profile_picture
+                                                    ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
+                                                        class="object-cover rounded-md mb-2 mx-auto"
+                                                        style="width: 250px; height: 250px;">`
+                                                    : `<div class="flex items-center justify-center mb-2 mx-auto"
+                                                        style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
+                                                        <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
+                                                       </div>`
+                                                }
+                                            </div>
+                                            <div class="flex justify-center space-x-3">
+                                                <button type="button"
+                                                    class="editEmployeeBtn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center"
+                                                    style="background-color: #2196f3;"
+                                                    data-employee-id="${employee.id}"
+                                                    data-employee-name="${employee.name}"
+                                                    data-employee-position="${employee.position}"
+                                                    data-employee-educbackground="${employee.educationback}"
+                                                    data-employee-keyskills="${employee.keyskills}"
+                                                    data-employee-link="${employee.link}">
+                                                    <i class="fas fa-edit mr-2"></i>
+                                                    Edit
                                                 </button>
-                                            </form>
+                                                <form action="/employees/${employee.id}" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this employee?');"
+                                                    class="inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200 flex items-center"
+                                                        style="background-color: #ec2a2a;">
+                                                        <i class="fas fa-trash mr-2"></i>
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>`;
+                                    </div>`;
                             });
                         }
-                        employeeContainer.innerHTML = employeeHTML;
-                        employeeContainer.classList.remove('hidden');
+                        selectedContainer.innerHTML = employeeHTML;
                     })
                     .catch(error => {
                         console.error('Error fetching employees:', error);
-                        alert('There was an error fetching the employees. Please try again later.');
+                        selectedContainer.innerHTML = '<p class="text-center w-full">Error loading employees. Please try again later.</p>';
                     });
             }
 
@@ -845,5 +855,30 @@
                     });
                 }
             });
+
+            document.addEventListener('DOMContentLoaded', function() {
+    // Initialize edit manager modal
+    const editBranchManagerModal = new bootstrap.Modal(document.getElementById('editBranchManagerModal'));
+
+    // Handle edit manager button clicks
+    document.querySelectorAll('.editManagerBtn').forEach(button => {
+        button.addEventListener('click', function() {
+            const managerId = this.getAttribute('data-manager-id');
+
+            // Set the form action URL
+            document.getElementById('editManagerForm').action = `/members/updateManagerProfile/${managerId}`;
+
+            // Set form values
+            document.getElementById('edit_manager_name').value = this.getAttribute('data-manager-name');
+            document.getElementById('edit_manager_position').value = this.getAttribute('data-manager-position');
+            document.getElementById('edit_manager_educbackground').innerHTML = this.getAttribute('data-manager-educbackground');
+            document.getElementById('edit_manager_keyskills').innerHTML = this.getAttribute('data-manager-keyskills');
+            document.getElementById('edit_manager_link').value = this.getAttribute('data-manager-link');
+
+            // Show the modal
+            editBranchManagerModal.show();
+        });
+    });
+});
         </script>
 @endsection

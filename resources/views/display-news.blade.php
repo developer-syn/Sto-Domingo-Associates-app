@@ -133,7 +133,8 @@
                 <ul>
                     <li>
                         <a href="{{ route('display-news') }}?category=news"
-                            class="{{ $category == 'news' ? 'active' : '' }}" id="button1">
+                            class="{{ $category == 'news' ? 'active' : '' }}"
+                            id="button1">
                             News
                             <i class="ri-newspaper-line"></i>
                             <span class="label" id="news-num">{{ count($news) }}</span>
@@ -141,7 +142,8 @@
                     </li>
                     <li>
                         <a href="{{ route('display-news') }}?category=events"
-                            class="{{ $category == 'events' ? 'active' : '' }}" id="button2">
+                            class="{{ $category == 'events' ? 'active' : '' }}"
+                            id="button2">
                             Events
                             <i class="ri-calendar-event-line"></i>
                             <span class="label" id="events-num">{{ count($events) }}</span>
@@ -149,7 +151,8 @@
                     </li>
                     <li>
                         <a href="{{ route('display-news') }}?category=triumphs"
-                            class="{{ $category == 'triumphs' ? 'active' : '' }}" id="button3">
+                            class="{{ $category == 'triumphs' ? 'active' : '' }}"
+                            id="button3">
                             Triumphs
                             <i class="ri-medal-line"></i>
                             <span class="label" id="achievements-num">{{ count($triumphs) }}</span>
@@ -158,28 +161,30 @@
                 </ul>
             </nav>
 
-            <div id="content" class="news-list">
-                @if ($category == 'news')
-                    @foreach ($news as $item)
-                        <div class="embed-code">
-                            {!! $item->embed_code !!}
-                        </div>
-                    @endforeach
-                @elseif ($category == 'events')
-                    @foreach ($events as $item)
-                        <div class="embed-code">
-                            {!! $item->embed_code !!}
-                        </div>
-                    @endforeach
-                @elseif ($category == 'triumphs')
-                    @foreach ($triumphs as $item)
-                        <div class="embed-code">
-                            {!! $item->embed_code !!}
-                        </div>
-                    @endforeach
-                @else
-                    <p class="no-items">Please select a category to view content.</p>
-                @endif
+            <div class="news-content-container">
+                <div id="content" class="news-list">
+                    @if ($category == 'news')
+                        @foreach ($news as $item)
+                            <div class="embed-code">
+                                {!! $item->embed_code !!}
+                            </div>
+                        @endforeach
+                    @elseif ($category == 'events')
+                        @foreach ($events as $item)
+                            <div class="embed-code">
+                                {!! $item->embed_code !!}
+                            </div>
+                        @endforeach
+                    @elseif ($category == 'triumphs')
+                        @foreach ($triumphs as $item)
+                            <div class="embed-code">
+                                {!! $item->embed_code !!}
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="no-items">Please select a category to view content.</p>
+                    @endif
+                </div>
             </div>
 
         </section>

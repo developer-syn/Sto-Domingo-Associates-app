@@ -441,23 +441,23 @@ body {
   margin: 14vh auto;
   min-width: 89vw;
   max-width: 89vw;
-  height: calc(100vh - 20vh); /* Adjust height dynamically based on viewport */
+  height: calc(100vh - 20vh);
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 3vw;
   font-family: "ADLaM Display";
   font-weight: bolder;
   color: #000000;
-  overflow-y: auto; /* Allow scrolling for content overflow */
-  overflow-x: hidden;
   border-bottom: 0.3vh solid rgb(221, 42, 42);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  scrollbar-width: auto;
-  scrollbar-color: #ffffff rgb(83, 81, 81);
+  position: relative; /* Add this */
+  overflow: hidden; /* Change from auto to hidden */
 }
-/* Scrollbar Styling for section1 */
 
+/* Add new styles for nav */
 .ssection1 nav {
-  position: relative;
+  position: sticky; /* Change from relative to sticky */
+  top: 0; /* Add this */
+  z-index: 10; /* Add this */
   min-width: 89vw;
   max-width: 89vw;
   height: 9vh;
@@ -465,8 +465,52 @@ body {
   justify-content: center;
   background-color: #ffffff;
   border-bottom: 0.3vh solid rgb(221, 42, 42);
-
   display: flex;
+}
+
+/* Add new styles for content container */
+.news-content-container {
+  height: calc(100% - 9vh);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Add responsive styles for embedded content */
+.embed-code {
+  transition: transform 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.embed-code:hover {
+  transform: scale(1.02);
+}
+
+/* Add responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .ssection1 {
+    min-width: 95vw;
+    max-width: 95vw;
+    margin: 12vh auto;
+  }
+
+  .ssection1 nav {
+    min-width: 95vw;
+    max-width: 95vw;
+  }
+
+  nav ul {
+    padding: 0 2vw !important;
+  }
+
+  #button1, #button2, #button3 {
+    min-width: 25vw;
+    max-width: 25vw;
+    font-size: 2.5vw !important;
+  }
+
+  .news-content-container {
+    padding: 10px;
+  }
 }
 
 #ssection1-intro {
