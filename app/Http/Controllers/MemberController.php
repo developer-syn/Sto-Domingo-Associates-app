@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ManagerProfile;
 use App\Models\EmployeeProfile;
 use App\Models\ContactUs;
-
+use Illuminate\Support\Facades\Storage;
 class MemberController extends Controller
 {
     // Display manager and employee profiles for a specific branch
@@ -152,16 +152,27 @@ public function updateEmployeeProfile(Request $request, $id)
         'profile_picture_employee' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
     ]);
 
+    // Create update data array
+    $updateData = [
+        'name' => $validated['name'],
+        'position' => $validated['position'],
+        'educationback' => $request->input('educationback'),
+        'keyskills' => $request->input('keyskills'),
+        'link' => $validated['link']
+    ];
+
+    // Handle profile picture upload if present
     if ($request->hasFile('profile_picture_employee')) {
-        // Delete old image if exists
+        // Delete old profile picture if it exists
         if ($employee->profile_picture) {
             Storage::delete('public/' . $employee->profile_picture);
         }
         $path = $request->file('profile_picture_employee')->store('employee_pictures', 'public');
-        $validated['profile_picture'] = $path;
+        $updateData['profile_picture'] = $path;
     }
 
-    $employee->update($validated);
+    // Update the employee record
+    $employee->update($updateData);
 
     return redirect()->back()->with('success', 'Employee profile updated successfully');
 }
@@ -175,10 +186,7 @@ public function updateEmployeeProfile(Request $request, $id)
         return redirect()->back()->with('success', 'Branch Manager deleted successfully!');
     }
 
-    // Update an Employee
-    /* Duplicate updateEmployeeProfile method removed to resolve duplicate symbol error. */
 
-    // Delete an Employee
     public function deleteEmployeeProfile($id)
     {
         $employee = EmployeeProfile::findOrFail($id);

@@ -79,10 +79,11 @@
                                         <i class="fas fa-trash"></i> Delete
                                     </button>
                                 </form>
-                                <button onclick="showEmployees({{ $manager->id }})"
-                                    class="text-white px-3 py-1 w-32"
+                                <button type="button"
+                                    class="text-white px-3 py-1 w-32 showEmployeesBtn"
                                     style="background-color: #2196f3; border-radius: 5px; border: none; display: flex; align-items: center; justify-content: center; gap: 4px;"
-                                    data-manager-id="{{ $manager->id }}">
+                                    data-manager-id="{{ $manager->id }}"
+                                    onclick="showEmployees({{ $manager->id }})">
                                     <i class="fas fa-users"></i> Display
                                 </button>
                             </div>
@@ -815,35 +816,46 @@
                 }
             });
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const editEmployeeModal = new bootstrap.Modal(document.getElementById('editEmployeeModal'));
+document.addEventListener('DOMContentLoaded', function() {
+    const editEmployeeModal = new bootstrap.Modal(document.getElementById('editEmployeeModal'));
 
-                // Use event delegation for dynamically added edit buttons
-                document.addEventListener('click', function(event) {
-                    if (event.target.closest('.editEmployeeBtn')) {
-                        const button = event.target.closest('.editEmployeeBtn');
-                        const employeeId = button.dataset.employeeId;
-                        const employeeName = button.dataset.employeeName;
-                        const employeePosition = button.dataset.employeePosition;
-                        const employeeEducBackground = button.dataset.employeeEducbackground;
-                        const employeeKeySkills = button.dataset.employeeKeyskills;
-                        const employeeLink = button.dataset.employeeLink;
+    // Use event delegation for dynamically added edit buttons
+    document.addEventListener('click', function(event) {
+        if (event.target.closest('.editEmployeeBtn')) {
+            const button = event.target.closest('.editEmployeeBtn');
+            const employeeId = button.dataset.employeeId;
+            const employeeName = button.dataset.employeeName;
+            const employeePosition = button.dataset.employeePosition;
+            const employeeEducBackground = button.dataset.employeeEducbackground;
+            const employeeKeySkills = button.dataset.employeeKeyskills;
+            const employeeLink = button.dataset.employeeLink;
 
-                        // Set form action and values
-                        const editForm = document.getElementById('editEmployeeForm');
-                        editForm.action = `/employees/update/${employeeId}`;
+            // Set form action and values
+            const editForm = document.getElementById('editEmployeeForm');
+            editForm.action = `/employees/update/${employeeId}`;
 
-                        document.getElementById('edit_name').value = employeeName || '';
-                        document.getElementById('edit_position').value = employeePosition || '';
-                        document.getElementById('edit_educationback').innerHTML = employeeEducBackground || '';
-                        document.getElementById('edit_keyskills').innerHTML = employeeKeySkills || '';
-                        document.getElementById('edit_link').value = employeeLink || '';
+            document.getElementById('edit_name').value = employeeName || '';
+            document.getElementById('edit_position').value = employeePosition || '';
+            document.getElementById('edit_educationback').innerHTML = employeeEducBackground || '';
+            document.getElementById('edit_keyskills').innerHTML = employeeKeySkills || '';
+            document.getElementById('edit_link').value = employeeLink || '';
 
-                        // Show modal
-                        editEmployeeModal.show();
-                    }
-                });
+            // Show modal
+            editEmployeeModal.show();
+        }
+    });
 
+    // Add form submission handler for employee edit form
+    const editEmployeeForm = document.getElementById('editEmployeeForm');
+    if (editEmployeeForm) {
+        editEmployeeForm.addEventListener('submit', function(e) {
+            document.getElementById('hidden_edit_educationback').value =
+                document.getElementById('edit_educationback').innerHTML.trim();
+            document.getElementById('hidden_edit_keyskills').value =
+                document.getElementById('edit_keyskills').innerHTML.trim();
+        });
+    }
+});
                 // Add form submission handler for employee edit form
                 const editEmployeeForm = document.getElementById('editEmployeeForm');
                 if (editEmployeeForm) {
