@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         managerDiv.innerHTML = `
-                        <img src="/storage/${manager.profile_picture}" alt="${manager.name}" class="manager-photo" />
+                        <img src="${manager.profile_picture}" alt="${manager.name}" class="manager-photo" />
                         ${specifyBranchHTML}
                         <p class="mt-2">
                             <a href="${manager.link}" target="_blank" class="manager-name" style="color: black; text-decoration: underline; transition: color 0.3s;margin-top: 2rem;">
@@ -317,7 +317,7 @@ data.forEach(employee => {
     const employeeDiv = document.createElement('div');
     employeeDiv.classList.add('employee-card');
     employeeDiv.innerHTML = `
-        <img src="/storage/${employee.profile_picture}" alt="${employee.name}" class="photo"
+        <img src="${employee.profile_picture}" alt="${employee.name}" class="photo"
             data-education="${employee.educationback ? employee.educationback.replace(/"/g, '&quot;') : ''}"
             data-skills="${employee.keyskills ? employee.keyskills.replace(/"/g, '&quot;') : ''}" />
         <p>

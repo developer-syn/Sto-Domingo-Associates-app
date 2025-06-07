@@ -46,15 +46,17 @@
                                     <h3 class="text-lg font-semibold mt-2 underline">{{ $manager->name }}</h3>
                                 </a>
                                 <h4 class="text-md font-medium text-gray-600 mt-0.1">{{ $manager->position }}</h4>
-                                @if ($manager->profile_picture)
-                                    <img src="{{ asset('storage/' . $manager->profile_picture) }}" alt="{{ $manager->name }}"
-                                        class="object-cover rounded-md mb-2 mx-auto" style="width: 250px; height: 250px;">
-                                @else
-                                    <div class="flex items-center justify-center mb-2 mx-auto"
-                                         style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
-                                        <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
-                                    </div>
-                                @endif
+                            @if ($manager->profile_picture)
+                                <img src="{{ asset($manager->profile_picture) }}"
+                                    alt="{{ $manager->name }}"
+                                    class="object-cover rounded-md mb-2 mx-auto"
+                                    style="width: 250px; height: 250px;">
+                            @else
+                                <div class="flex items-center justify-center mb-2 mx-auto"
+                                    style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
+                                    <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
+                                </div>
+                            @endif
                             </div>
                             <div class="flex justify-center mt-2 gap-2">
                                 <button
@@ -805,7 +807,7 @@ function formatText(command, elementId = null) {
                 </a>
                 <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
                 ${employee.profile_picture
-                    ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
+                    ? `<img src="${employee.profile_picture}" alt="${employee.name}"
                         class="object-cover rounded-md mb-2 mx-auto"
                         style="width: 250px; height: 250px;">`
                     : `<div class="flex items-center justify-center mb-2 mx-auto"

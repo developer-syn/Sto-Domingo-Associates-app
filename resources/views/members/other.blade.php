@@ -48,7 +48,7 @@
                                 </a>
                                 <h4 class="text-md font-medium text-gray-600 mt-0.1">{{ $manager->position }}</h4>
                                 @if ($manager->profile_picture)
-                                    <img src="{{ asset('storage/' . $manager->profile_picture) }}" alt="{{ $manager->name }}"
+                                    <img src="{{ asset($manager->profile_picture) }}" alt="{{ $manager->name }}"
                                         class="object-cover rounded-md mb-2 mx-auto" style="width: 250px; height: 250px;">
                                 @else
                                     <div class="flex items-center justify-center mb-2 mx-auto"
@@ -815,7 +815,7 @@ function formatText(command, elementId = null) {
                 </a>
                 <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
                 ${employee.profile_picture
-                    ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
+                    ? `<img src="${employee.profile_picture}" alt="${employee.name}"
                         class="object-cover rounded-md mb-2 mx-auto"
                         style="width: 250px; height: 250px;">`
                     : `<div class="flex items-center justify-center mb-2 mx-auto"

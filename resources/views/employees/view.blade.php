@@ -32,7 +32,7 @@
                         <td>{{ $employee->id }}</td>
                         <td>
                             @if ($employee->profile_picture)
-                                <img src="{{ asset('storage/' . $employee->profile_picture) }}" alt="Profile Picture"
+                                <img src="{{ asset($employee->profile_picture) }}" alt="Profile Picture"
                                     style="height: 50px; width: 50px; border-radius: 50%;">
                             @else
                                 <img src="https://via.placeholder.com/50" alt="Default Profile Picture"
@@ -72,7 +72,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         {{record.last_name|upper}},&nbsp;&nbsp;
         {{record.first_name|upper}}
-        <hr>    
+        <hr>
     </strong>
 
     <div class="card-body">

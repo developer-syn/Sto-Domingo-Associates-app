@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -32,14 +31,28 @@ class EmployeeController extends Controller
             'email' => 'required|email|max:255|unique:employees',
             'phone_number' => 'required|string|max:15',
             'age' => 'required|integer|min:18',
-            'position' => 'required|string|max:255', // Position is required
+            'position' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:10000',
         ]);
 
         // Handle profile picture upload
         if ($request->hasFile('profile_picture')) {
-            $validated['profile_picture'] = $request->file('profile_picture')->store('employees', 'public');
+            $file = $request->file('profile_picture');
+
+            // Create upload directory if it doesn't exist
+            $uploadPath = public_path('uploads/employees');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            // Generate unique filename
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // Move file to public directory
+            $file->move($uploadPath, $fileName);
+
+            $validated['profile_picture'] = 'uploads/employees/' . $fileName;
         }
 
         // If middle_name is null, set it to an empty string
@@ -68,7 +81,7 @@ class EmployeeController extends Controller
             'sex' => 'required|string|max:255',
             'phone_number' => 'required|string|max:20',
             'age' => 'required|integer|min:18',
-            'position' => 'required|string|max:255', // Ensure position is handled
+            'position' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -76,20 +89,35 @@ class EmployeeController extends Controller
         // If middle_name is null or empty, set it to an empty string
         $validated['middle_name'] = $request->middle_name ?? '';
 
-        // Update the employee
-        $employee->update($validated);
-
         // Handle profile picture upload
         if ($request->hasFile('profile_picture')) {
             // Delete the old profile picture if it exists
             if ($employee->profile_picture) {
-                Storage::delete('public/' . $employee->profile_picture);
+                $oldPhotoPath = public_path($employee->profile_picture);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
             }
 
-            // Store new profile picture
-            $filename = $request->file('profile_picture')->store('employees', 'public');
-            $employee->update(['profile_picture' => $filename]);
+            $file = $request->file('profile_picture');
+
+            // Create upload directory if it doesn't exist
+            $uploadPath = public_path('uploads/employees');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            // Generate unique filename
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // Move file to public directory
+            $file->move($uploadPath, $fileName);
+
+            $validated['profile_picture'] = 'uploads/employees/' . $fileName;
         }
+
+        // Update the employee
+        $employee->update($validated);
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully');
     }
@@ -101,7 +129,10 @@ class EmployeeController extends Controller
 
         // Delete the profile picture if it exists
         if ($employee->profile_picture) {
-            Storage::delete('public/' . $employee->profile_picture);
+            $photoPath = public_path($employee->profile_picture);
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
         }
 
         // Delete employee

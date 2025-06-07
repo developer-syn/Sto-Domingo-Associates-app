@@ -76,11 +76,11 @@
                             <a
                                 <!-- Profile Picture -->
                                 <div class="profile-photo">
-                                    @if(auth()->user()->profile_photo)
-                                        <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" style="margin-right: 10px;height: 45px; width: 45px; border-radius: 50px">
-                                    @else
-                                        <img src="https://via.placeholder.com/150">
-                                    @endif
+    @if(auth()->user()->profile_photo)
+        <img src="{{ asset(auth()->user()->profile_photo) }}" style="margin-right: 10px;height: 45px; width: 45px; border-radius: 50px">
+    @else
+        <img src="{{ asset('images/default-avatar.png') }}" style="margin-right: 10px;height: 45px; width: 45px; border-radius: 50px">
+    @endif
                                 </div>
 
                             </a>

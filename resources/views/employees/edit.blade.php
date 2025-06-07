@@ -97,9 +97,12 @@
                     <label for="profile_picture">Profile Picture</label>
                     <input type="file" id="profile_picture" name="profile_picture" class="form-control">
                     @if (isset($employee) && $employee->profile_picture)
-                        <img src="{{ asset('storage/' . $employee->profile_picture) }}" alt="Profile Picture"
-                            style="width:100px; height:100px; margin-top: 10px;">
-                    @endif
+    <img src="{{ asset($employee->profile_picture) }}" alt="Profile Picture"
+        style="width:100px; height:100px; margin-top: 10px;">
+@else
+    <img src="{{ asset('images/default-avatar.png') }}" alt="Default Profile Picture"
+        style="width:100px; height:100px; margin-top: 10px;">
+@endif
                 </div>
                 <button type="submit" class="btn-submit">
                     {{ isset($employee) ? 'Update Employee' : 'Add Employee' }}

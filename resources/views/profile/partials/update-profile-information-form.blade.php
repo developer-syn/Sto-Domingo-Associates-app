@@ -29,13 +29,11 @@
 
             <!-- Profile Picture Display -->
             <div class="col-md-2">
-                @if (auth()->user()->profile_photo)
-                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" alt="Profile Photo"
-                        class="img-thumbnail" style="height: 100px; width: 100px; border-radius: 50px;">
-                @else
-                    <img src="https://via.placeholder.com/100" alt="Default Profile Photo" class="img-thumbnail"
-                        style="height: 100px; width: 100px; border-radius: 10px;">
-                @endif
+    @if(auth()->user()->profile_photo)
+        <img src="{{ asset(auth()->user()->profile_photo) }}" style="margin-right: 10px;height: 45px; width: 45px; border-radius: 50px">
+    @else
+        <img src="{{ asset('images/default-avatar.png') }}" style="margin-right: 10px;height: 45px; width: 45px; border-radius: 50px">
+    @endif
             </div>
 
         </div>
