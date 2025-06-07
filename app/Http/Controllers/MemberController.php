@@ -120,6 +120,7 @@ public function updateManagerProfile(Request $request, $id)
         'name' => 'required|string|max:255',
         'position' => 'required|string|max:255',
         'educbackground' => 'nullable|string',
+        'specify_branch' => 'nullable|string|max:255',
         'keyskills' => 'nullable|string',
         'link' => 'nullable|url',
         'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
@@ -152,18 +153,15 @@ public function updateEmployeeProfile(Request $request, $id)
         'profile_picture_employee' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
     ]);
 
-    // Create update data array
     $updateData = [
         'name' => $validated['name'],
         'position' => $validated['position'],
-        'educationback' => $request->input('educationback'),
-        'keyskills' => $request->input('keyskills'),
+        'educationback' => $request->input('educationback'), // Use input() to get raw data
+        'keyskills' => $request->input('keyskills'),       // Use input() to get raw data
         'link' => $validated['link']
     ];
 
-    // Handle profile picture upload if present
     if ($request->hasFile('profile_picture_employee')) {
-        // Delete old profile picture if it exists
         if ($employee->profile_picture) {
             Storage::delete('public/' . $employee->profile_picture);
         }
@@ -171,12 +169,10 @@ public function updateEmployeeProfile(Request $request, $id)
         $updateData['profile_picture'] = $path;
     }
 
-    // Update the employee record
     $employee->update($updateData);
 
     return redirect()->back()->with('success', 'Employee profile updated successfully');
 }
-
 
     // Delete a Branch Manager
     public function deleteManagerProfile($id)

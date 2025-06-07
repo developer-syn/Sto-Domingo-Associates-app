@@ -252,17 +252,25 @@
         </div>
     </div>
 
-    <div id="EmployeeModal" class="modal" role="dialog" aria-labelledby="modalEmployeeName">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="fade-in">BACKGROUND</h3>
-                <span class="close">&times;</span>
-            </div>
+<div id="EmployeeModal" class="modal" role="dialog" aria-labelledby="modalEmployeeName">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="fade-in">BACKGROUND</h3>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
             <h2 id="modalEmployeeName" class="fade-in"></h2>
-            <p id="modalEmployeeEducation" class="fade-in"></p>
-            <p id="modalEmployeeSkills" class="fade-in"></p>
+            <div class="education-section">
+
+                <div id="modalEmployeeEducation" class="fade-in"></div>
+            </div>
+            <div class="skills-section">
+
+                <div id="modalEmployeeSkills" class="fade-in"></div>
+            </div>
         </div>
     </div>
+</div>
 
 
     <footer class="footer">

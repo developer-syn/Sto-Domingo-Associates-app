@@ -422,82 +422,83 @@
             </div>
         </div>
 
-        <!-- Edit Employee Modal -->
-        <div class="modal fade" id="editEmployeeModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="editEmployeeModalLabel">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content shadow-lg">
-                    <div class="modal-header" style="background-color: #ec2a2a; color: #fff;">
-                        <h5 class="modal-title w-100 text-center" id="editEmployeeModalLabel">Edit Employee</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="editEmployeeForm" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="edit_name" class="form-label">Name</label>
-                                    <input type="text" id="edit_name" name="name" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="edit_position" class="form-label">Position</label>
-                                    <input type="text" id="edit_position" name="position" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <label for="edit_educationback" class="form-label">Education Background</label>
-                                <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
-                                    <div class="btn-group me-2" role="group">
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-                                    </div>
-                                    <div class="btn-group me-2" role="group">
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
-                                    </div>
-                                </div>
-                                <div id="edit_educationback" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
-                                <input type="hidden" name="educationback" id="hidden_edit_educationback">
-                            </div>
-                            <div class="mt-3">
-                                <label for="edit_keyskills" class="form-label">Key Skills</label>
-                                <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
-                                    <div class="btn-group me-2" role="group">
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-                                    </div>
-                                    <div class="btn-group me-2" role="group">
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull')"><i class="fas fa-align-justify"></i></button>
-                                    </div>
-                                </div>
-                                <div id="edit_keyskills" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
-                                <input type="hidden" name="keyskills" id="hidden_edit_keyskills">
-                            </div>
-                            <div class="row g-3 mt-3">
-                                <div class="col-md-6">
-                                    <label for="edit_link" class="form-label">Link</label>
-                                    <input type="url" id="edit_link" name="link" placeholder="https://example.com" class="form-control">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="edit_profile_picture" class="form-label">Profile Picture</label>
-                                    <input type="file" id="edit_profile_picture" name="profile_picture_employee" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button type="submit" class="btn btn-danger px-4">Update</button>
-                        </div>
-                    </form>
-                </div>
+<!-- Edit Employee Modal -->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="editEmployeeModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header" style="background-color: #ec2a2a; color: #fff;">
+                <h5 class="modal-title w-100 text-center" id="editEmployeeModalLabel">Edit Employee</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form id="editEmployeeForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="edit_name" class="form-label">Name</label>
+                            <input type="text" id="edit_name" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_position" class="form-label">Position</label>
+                            <input type="text" id="edit_position" name="position" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="edit_educationback" class="form-label">Education Background</label>
+                        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold', 'edit_educationback')"><i class="fas fa-bold"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic', 'edit_educationback')"><i class="fas fa-italic"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline', 'edit_educationback')"><i class="fas fa-underline"></i></button>
+                            </div>
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft', 'edit_educationback')"><i class="fas fa-align-left"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter', 'edit_educationback')"><i class="fas fa-align-center"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight', 'edit_educationback')"><i class="fas fa-align-right"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull', 'edit_educationback')"><i class="fas fa-align-justify"></i></button>
+                            </div>
+                        </div>
+                        <div id="edit_educationback" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
+                        <input type="hidden" name="educationback" id="hidden_edit_educationback">
+                    </div>
+                    <div class="mt-3">
+                        <label for="edit_employee_keyskills" class="form-label">Key Skills</label>
+                        <div class="btn-toolbar mb-2" role="toolbar" aria-label="Formatting toolbar">
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Bold" onclick="formatText('bold', 'edit_employee_keyskills')"><i class="fas fa-bold"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Italic" onclick="formatText('italic', 'edit_employee_keyskills')"><i class="fas fa-italic"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Underline" onclick="formatText('underline', 'edit_employee_keyskills')"><i class="fas fa-underline"></i></button>
+                            </div>
+                            <div class="btn-group me-2" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Left" onclick="formatText('justifyLeft', 'edit_employee_keyskills')"><i class="fas fa-align-left"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Center" onclick="formatText('justifyCenter', 'edit_employee_keyskills')"><i class="fas fa-align-center"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Align Right" onclick="formatText('justifyRight', 'edit_employee_keyskills')"><i class="fas fa-align-right"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" title="Justify" onclick="formatText('justifyFull', 'edit_employee_keyskills')"><i class="fas fa-align-justify"></i></button>
+                            </div>
+                        </div>
+                        <div id="edit_employee_keyskills" contenteditable="true" class="form-control" style="min-height: 80px; background: #f8f9fa; border-radius: 0.375rem; overflow-y: auto;"></div>
+                        <input type="hidden" name="keyskills" id="hidden_edit_employee_keyskills">
+                    </div>
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="edit_link" class="form-label">Link</label>
+                            <input type="url" id="edit_link" name="link" placeholder="https://example.com" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_profile_picture" class="form-label">Profile Picture</label>
+                            <input type="file" id="edit_profile_picture" name="profile_picture_employee" class="form-control">
+                            <div id="current_picture" class="mt-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-danger px-4">Update</button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
 
         <!-- Add these in the head section or before closing body tag -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -619,55 +620,62 @@
 
         <script>
             // Function to format text in contenteditable divs
-            function formatText(command, value = null) {
-                document.execCommand(command, false, value);
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to format text in contenteditable divs
+function formatText(command, elementId = null) {
+    if (elementId) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.focus();
+            document.execCommand(command, false, null);
+        }
+    } else {
+        document.execCommand(command, false, null);
+    }
+}
 
-            // Before form submission, transfer contenteditable content to hidden input fields
-            document.addEventListener('DOMContentLoaded', function() {
-                const employeeForm = document.getElementById('EmployeeForm');
-                const branchManagerForm = document.getElementById('branchManagerForm');
-                const editManagerForm = document.getElementById('editManagerForm');
-                const editEmployeeForm = document.getElementById('editEmployeeForm');
+    // Before form submission, transfer contenteditable content to hidden input fields
+    const employeeForm = document.getElementById('EmployeeForm');
+    const branchManagerForm = document.getElementById('branchManagerForm');
+    const editManagerForm = document.getElementById('editManagerForm');
+    const editEmployeeForm = document.getElementById('editEmployeeForm');
 
-                if (employeeForm) {
-                    employeeForm.addEventListener('submit', function(e) {
-                        // Copy the content from contenteditable divs to hidden inputs
-                        document.getElementById('hidden_education_background').value = document.getElementById(
-                            'educationback').innerHTML.trim();
-                        document.getElementById('hidden_keyskills').value = document.getElementById('keyskills')
-                            .innerHTML.trim();
-                    });
-                }
+    if (employeeForm) {
+        employeeForm.addEventListener('submit', function(e) {
+            document.getElementById('hidden_educationback').value =
+                document.getElementById('educationback').innerHTML.trim();
+            document.getElementById('hidden_employee_keyskills').value =
+                document.getElementById('employee_keyskills').innerHTML.trim();
+        });
+    }
 
-                if (branchManagerForm) {
-                    branchManagerForm.addEventListener('submit', function(e) {
-                        // Ensure the IDs match the updated field names
-                        document.getElementById('hidden_educbackground').value = document.getElementById(
-                            'educbackground').innerHTML.trim();
-                        document.getElementById('hidden_keyskills').value = document.getElementById('keyskills')
-                            .innerHTML.trim();
-                    });
-                }
+    if (branchManagerForm) {
+        branchManagerForm.addEventListener('submit', function(e) {
+            document.getElementById('hidden_educbackground').value =
+                document.getElementById('educbackground').innerHTML.trim();
+            document.getElementById('hidden_keyskills').value =
+                document.getElementById('keyskills').innerHTML.trim();
+        });
+    }
 
-                if (editManagerForm) {
-                    editManagerForm.addEventListener('submit', function(e) {
-                        document.getElementById('hidden_edit_educbackground').value = document.getElementById(
-                            'edit_manager_educbackground').innerHTML.trim();
-                        document.getElementById('hidden_edit_keyskills').value = document.getElementById(
-                            'edit_manager_keyskills').innerHTML.trim();
-                    });
-                }
+    if (editManagerForm) {
+        editManagerForm.addEventListener('submit', function(e) {
+            document.getElementById('hidden_edit_educbackground').value =
+                document.getElementById('edit_manager_educbackground').innerHTML.trim();
+            document.getElementById('hidden_edit_keyskills').value =
+                document.getElementById('edit_manager_keyskills').innerHTML.trim();
+        });
+    }
 
-                if (editEmployeeForm) {
-                    editEmployeeForm.addEventListener('submit', function(e) {
-                        document.getElementById('hidden_edit_educbackground').value = document.getElementById(
-                            'edit_educbackground').innerHTML.trim();
-                        document.getElementById('hidden_edit_keyskills').value = document.getElementById(
-                            'edit_keyskills').innerHTML.trim();
-                    });
-                }
-            });
+    if (editEmployeeForm) {
+        editEmployeeForm.addEventListener('submit', function(e) {
+            document.getElementById('hidden_edit_educationback').value =
+                document.getElementById('edit_educationback').innerHTML.trim();
+            document.getElementById('hidden_edit_employee_keyskills').value =
+                document.getElementById('edit_employee_keyskills').innerHTML.trim();
+        });
+    }
+});
 
             // JavaScript for Modal Behavior
             document.addEventListener('DOMContentLoaded', function() {
@@ -760,46 +768,7 @@
                 // --------------------------
                 // Employee Edit Modal Logic
                 // --------------------------
-                const editEmployeeModal = document.getElementById('editEmployeeModal');
-                const closeEditEmployeeModalBtn = document.getElementById('closeEditEmployeeModal');
-                const editEmployeeForm = document.getElementById('editEmployeeForm');
 
-                if (editEmployeeModal && closeEditEmployeeModalBtn && editEmployeeForm) {
-                    document.body.addEventListener('click', function(event) {
-                        const editButton = event.target.closest('.editEmployeeBtn');
-                        if (editButton) {
-                            const employeeId = editButton.getAttribute('data-employee-id');
-                            const employeeName = editButton.getAttribute('data-employee-name');
-                            const employeePosition = editButton.getAttribute('data-employee-position');
-                            const employeeEducBackground = editButton.getAttribute(
-                                'data-employee-educbackground'); // Fixed the attribute name here
-                            const employeeKeySkills = editButton.getAttribute('data-employee-keyskills');
-                            const employeeLink = editButton.getAttribute('data-employee-link');
-
-                            // Set the form action and pre-fill the data
-                            editEmployeeForm.action = `/members/updateEmployeeProfile/${employeeId}`;
-                            document.getElementById('edit_name').value = employeeName;
-                            document.getElementById('edit_position').value = employeePosition;
-
-                            // Check if 'edit_educationback' is a textarea or contenteditable div
-                            const editEducationBackElement = document.getElementById('edit_educationback');
-                            if (editEducationBackElement.tagName === 'TEXTAREA') {
-                                editEducationBackElement.value = employeeEducBackground; // For textarea
-                            } else {
-                                editEducationBackElement.innerHTML =
-                                    employeeEducBackground; // For contenteditable div
-                            }
-
-                            document.getElementById('edit_keyskills').value =
-                                employeeKeySkills; // Assuming this is also a textarea
-                            document.getElementById('edit_link').value = employeeLink;
-
-                            showModal(editEmployeeModal);
-                        }
-                    });
-
-                    setupModalClickOutside(editEmployeeModal, closeEditEmployeeModalBtn);
-                }
 
             });
 
@@ -826,38 +795,39 @@
                         } else {
                             data.forEach(employee => {
                                 employeeHTML += `
-                                    <div class="flex-shrink-0" style="width: 350px;">
-                                        <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
-                                            style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
-                                            <div>
-                                                <a href="${employee.link}" target="_blank" class="employee-name"
-                                                    style="color: black; text-decoration: underline;">
-                                                    <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
-                                                </a>
-                                                <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
-                                                ${employee.profile_picture
-                                                    ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
-                                                        class="object-cover rounded-md mb-2 mx-auto"
-                                                        style="width: 250px; height: 250px;">`
-                                                    : `<div class="flex items-center justify-center mb-2 mx-auto"
-                                                        style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
-                                                        <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
-                                                       </div>`
-                                                }
-                                            </div>
-                                            <div class="flex justify-center space-x-3">
-                                                <button type="button"
-                                                    class="editEmployeeBtn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center"
-                                                    style="background-color: #2196f3;"
-                                                    data-employee-id="${employee.id}"
-                                                    data-employee-name="${employee.name}"
-                                                    data-employee-position="${employee.position}"
-                                                    data-employee-educbackground="${employee.educationback}"
-                                                    data-employee-keyskills="${employee.keyskills}"
-                                                    data-employee-link="${employee.link}">
-                                                    <i class="fas fa-edit mr-2"></i>
-                                                    Edit
-                                                </button>
+    <div class="flex-shrink-0" style="width: 350px;">
+        <div class="bg-white p-4 border-black-1 rounded-lg shadow-md flex flex-col justify-between text-center"
+            style="background-color: #fff; box-shadow: 0 4px 8px rgba(223, 14, 14, 0.575); width: 100%; height: 430px;">
+            <div>
+                <a href="${employee.link}" target="_blank" class="employee-name"
+                    style="color: black; text-decoration: underline;">
+                    <h3 class="text-lg font-semibold mt-2 underline">${employee.name}</h3>
+                </a>
+                <h4 class="text-md font-medium text-gray-600 mt-0.1">${employee.position}</h4>
+                ${employee.profile_picture
+                    ? `<img src="/storage/${employee.profile_picture}" alt="${employee.name}"
+                        class="object-cover rounded-md mb-2 mx-auto"
+                        style="width: 250px; height: 250px;">`
+                    : `<div class="flex items-center justify-center mb-2 mx-auto"
+                        style="width: 250px; height: 250px; background-color: #f5f5f5; border-radius: 0.375rem;">
+                        <i class="fas fa-user-circle" style="font-size: 100px; color: #cecece;"></i>
+                       </div>`
+                }
+            </div>
+            <div class="flex justify-center space-x-3">
+<button type="button"
+    class="editEmployeeBtn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center"
+    style="background-color: #2196f3;"
+    data-employee-id="${employee.id}"
+    data-employee-name="${employee.name}"
+    data-employee-position="${employee.position}"
+    data-employee-educbackground="${employee.educationback ? employee.educationback.replace(/"/g, '&quot;') : ''}"
+    data-employee-keyskills="${employee.keyskills ? employee.keyskills.replace(/"/g, '&quot;') : ''}"
+    data-employee-link="${employee.link || ''}"
+    data-employee-picture="${employee.profile_picture || ''}">
+    <i class="fas fa-edit mr-2"></i>
+    Edit
+</button>
                                                 <form action="/employees/${employee.id}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to delete this employee?');"
                                                     class="inline-block">
@@ -963,30 +933,41 @@
                     }
                 });
 
-                // Event delegation for employee edit buttons
-                document.addEventListener('click', function(event) {
-                    const editEmployeeBtn = event.target.closest('.editEmployeeBtn');
-                    if (editEmployeeBtn) {
-                        const employeeId = editEmployeeBtn.dataset.employeeId;
-                        const employeeName = editEmployeeBtn.dataset.employeeName;
-                        const employeePosition = editEmployeeBtn.dataset.employeePosition;
-                        const employeeEducBackground = editEmployeeBtn.dataset.employeeEducbackground;
-                        const employeeKeySkills = editEmployeeBtn.dataset.employeeKeyskills;
-                        const employeeLink = editEmployeeBtn.dataset.employeeLink;
+// Event delegation for employee edit buttons
+document.addEventListener('click', function(event) {
+    const editEmployeeBtn = event.target.closest('.editEmployeeBtn');
+    if (editEmployeeBtn) {
+        const employeeId = editEmployeeBtn.dataset.employeeId;
+        const employeeName = editEmployeeBtn.dataset.employeeName;
+        const employeePosition = editEmployeeBtn.dataset.employeePosition;
+        const employeeEducBackground = editEmployeeBtn.dataset.employeeEducbackground || '';
+        const employeeKeySkills = editEmployeeBtn.dataset.employeeKeyskills || '';
+        const employeeLink = editEmployeeBtn.dataset.employeeLink || '';
+        const employeePicture = editEmployeeBtn.dataset.employeePicture || '';
 
-                        // Set the form action and pre-fill the data
-                        const editEmployeeForm = document.getElementById('editEmployeeForm');
-                        editEmployeeForm.action = `/employees/update/${employeeId}`;
-                        document.getElementById('edit_name').value = employeeName || '';
-                        document.getElementById('edit_position').value = employeePosition || '';
-                        document.getElementById('edit_educationback').innerHTML = employeeEducBackground || '';
-                        document.getElementById('edit_keyskills').innerHTML = employeeKeySkills || '';
-                        document.getElementById('edit_link').value = employeeLink || '';
+        const editEmployeeForm = document.getElementById('editEmployeeForm');
+        editEmployeeForm.action = `/employees/update/${employeeId}`;
+        document.getElementById('edit_name').value = employeeName || '';
+        document.getElementById('edit_position').value = employeePosition || '';
 
-                        // Show the modal
-                        editEmployeeModal.show();
-                    }
-                });
+        // Set contenteditable div content
+        const educBackDiv = document.getElementById('edit_educationback');
+        const keySkillsDiv = document.getElementById('edit_employee_keyskills');
+
+        educBackDiv.innerHTML = employeeEducBackground;
+        keySkillsDiv.innerHTML = employeeKeySkills;
+
+        // Update hidden inputs
+        document.getElementById('hidden_edit_educationback').value = employeeEducBackground;
+        document.getElementById('hidden_edit_employee_keyskills').value = employeeKeySkills;
+
+        document.getElementById('edit_link').value = employeeLink;
+
+        // Show the modal
+        const editEmployeeModal = new bootstrap.Modal(document.getElementById('editEmployeeModal'));
+        editEmployeeModal.show();
+    }
+});
             });
 
         </script>

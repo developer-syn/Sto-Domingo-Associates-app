@@ -312,22 +312,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.length === 0) {
                         employeeContainer.innerHTML = '<p>No employees found for this manager.</p>';
                     } else {
-                        data.forEach(employee => {
-                            const employeeDiv = document.createElement('div');
-                            employeeDiv.classList.add('employee-card');
-                            employeeDiv.innerHTML = `
-                            <img src="/storage/${employee.profile_picture}" alt="${employee.name}" class="photo"
-                                data-education="${employee.educationback || 'NO BACKGROUND DATA'}"
-                                data-skills="${employee.keyskills || 'NO BACKGROUND DATA'}" />
-                            <p>
-                                <a href="${employee.link}" target="_blank" class="manager-name" style="font-size: 18px; color: black; text-decoration: underline; transition: color 0.3s;">
-                                    ${employee.name}
-                                </a>
-                            </p>
-                            <h4 class="font-semibold position" style="font-size: 16px; font-weight: bold;">${employee.position}</h4>
-                        `;
-                            employeeContainer.appendChild(employeeDiv);
-                        });
+
+data.forEach(employee => {
+    const employeeDiv = document.createElement('div');
+    employeeDiv.classList.add('employee-card');
+    employeeDiv.innerHTML = `
+        <img src="/storage/${employee.profile_picture}" alt="${employee.name}" class="photo"
+            data-education="${employee.educationback ? employee.educationback.replace(/"/g, '&quot;') : ''}"
+            data-skills="${employee.keyskills ? employee.keyskills.replace(/"/g, '&quot;') : ''}" />
+        <p>
+            <a href="${employee.link}" target="_blank" class="manager-name" style="font-size: 18px; color: black; text-decoration: underline; transition: color 0.3s;">
+                ${employee.name}
+            </a>
+        </p>
+        <h4 class="font-semibold position" style="font-size: 16px; font-weight: bold;">${employee.position}</h4>
+    `;
+    employeeContainer.appendChild(employeeDiv);
+});
 
                         // Add hover effect for photos
                         const photos = document.querySelectorAll('.photo');
@@ -345,34 +346,46 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
 
                             // Add click event for modal
-                            photo.addEventListener('click', function () {
-                                const modal = document.getElementById("EmployeeModal");
-                                const modalEducation = document.getElementById("modalEmployeeEducation");
-                                const modalSkills = document.getElementById("modalEmployeeSkills");
-                                const modalEmployeeName = document.getElementById("modalEmployeeName");
-                                const fadeElements = modal.querySelectorAll('.fade-in');
+// In the employee photo click event handler (inside the fetch employees section)
+photo.addEventListener('click', function() {
+    const modal = document.getElementById("EmployeeModal");
+    const modalEducation = document.getElementById("modalEmployeeEducation");
+    const modalSkills = document.getElementById("modalEmployeeSkills");
+    const modalEmployeeName = document.getElementById("modalEmployeeName");
+    const fadeElements = modal.querySelectorAll('.fade-in');
 
-                                // Get education and skills data
-                                const education = this.getAttribute('data-education');
-                                const skills = this.getAttribute('data-skills');
-                                const employeeName = this.closest('.employee-card').querySelector('.manager-name').textContent;
+    // Get education and skills data
+    const education = this.getAttribute('data-education') || '<span style="font-weight: bold; color: #666;">No education background available</span>';
+    const skills = this.getAttribute('data-skills') || '<span style="font-weight: bold; color: #666;">No skills information available</span>';
+    const employeeName = this.closest('.employee-card').querySelector('.manager-name').textContent;
 
-                                // Set modal content
-                                modalEmployeeName.textContent = employeeName;
+    // Set modal content
+    modalEmployeeName.textContent = employeeName;
+    modalEducation.innerHTML = education;
+    modalSkills.innerHTML = skills;
 
-                                // Display education and skills in modal
-                                modalEducation.innerHTML = education; // Preserve formatting
-                                modalSkills.innerHTML = skills; // Preserve formatting
+    // Show the modal
+    modal.style.display = "block";
+    setTimeout(() => {
+        fadeElements.forEach(el => el.classList.add('show'));
+    }, 100);
 
-                                // Show the modal
-                                modal.style.display = "block";
-                                setTimeout(() => {
-                                    fadeElements.forEach(el => el.classList.add('show'));
-                                }, 100);
+    // Setup modal close behavior
+    const closeBtn = modal.querySelector(".close");
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            fadeElements.forEach(el => el.classList.remove('show'));
+        };
+    }
 
-                                // Setup modal close behavior for the specific modal
-                                setupModal(modal);
-                            });
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+            fadeElements.forEach(el => el.classList.remove('show'));
+        }
+    };
+});
                         });
                     }
                 })
